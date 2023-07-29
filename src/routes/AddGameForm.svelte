@@ -1,4 +1,4 @@
-<div class="space-y-4 bg-slate-200 px-6 py-8 rounded">
+<div class="space-y-4 bg-slate-200 px-6 py-8 rounded shadow">
 	<h2 class="text-xl font-bold">Lisää leikki</h2>
 	<form action="?/createGame" method="POST" class="space-y-4">
 		<div>

@@ -31,5 +31,26 @@ export const actions: Actions = {
 		return {
 			status: 201
 		};
+	},
+
+	deleteGame: async ({ url }) => {
+		const id = url.searchParams.get('id');
+		if (!id) {
+			return fail(`No article found with ID ${id}`);
+		}
+		try {
+			await prisma.game.delete({
+				where: {
+					id: Number(id)
+				}
+			});
+		} catch (err) {
+			console.log(err);
+			return fail('Something went wrong while deleting the game');
+		}
+
+		return {
+			status: 201
+		};
 	}
 };

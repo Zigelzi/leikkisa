@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import AddGameForm from './AddGameForm.svelte';
+	import Game from './Game.svelte';
 
 	export let data: PageData;
 
@@ -17,9 +18,14 @@
 	<AddGameForm />
 </div>
 <div class="mb-8">
-	<h2 class="text-2xl">Leikit</h2>
-	{#each games as game}
-		<p class="text-lg text-bold">{game.name}</p>
-		<p>{game.description}</p>
-	{/each}
+	<h2 class="text-4xl mb-8">Leikit</h2>
+	<div class="space-y-4">
+		{#if games.length > 0}
+			{#each games as game}
+				<Game {game} />
+			{/each}
+		{:else}
+			<p class="text-light">Yhtään peliä ei löytynyt. :(</p>
+		{/if}
+	</div>
 </div>
