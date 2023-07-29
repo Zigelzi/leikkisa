@@ -1,33 +1,20 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import AddGameForm from './AddGameForm.svelte';
 
 	export let data: PageData;
 
 	$: ({ games } = data);
 </script>
 
-<div class="mb-8">
-	<h1 class="text-6xl">Leikkisä</h1>
-	<p>Kirjasto leikeistä joiden avulla liikut ja pidät hauskaa lastesi kanssa!</p>
+<div class="min-h-[80vh] flex items-center">
+	<div>
+		<h1 class="text-6xl mb-6">Leikkisä</h1>
+		<p>Kirjasto leikeistä joiden avulla liikut ja pidät hauskaa lastesi kanssa!</p>
+	</div>
 </div>
 <div class="mb-8">
-	<h2 class="text-2xl">Lisää leikki</h2>
-	<form action="?/createGame" method="POST">
-		<label for="name" class="block">
-			Nimi
-			<input type="text" name="name" id="name" class="border-slate-100 border-2 block" />
-		</label>
-		<label for="description" class="block">
-			Kuvaus
-			<textarea
-				name="description"
-				id="description"
-				class="block border-2 border-slate-100"
-				rows="3"
-			/>
-		</label>
-		<button type="submit" class="px-4 py-2 bg-slate-100">Lisää</button>
-	</form>
+	<AddGameForm />
 </div>
 <div class="mb-8">
 	<h2 class="text-2xl">Leikit</h2>
