@@ -11,8 +11,26 @@ datasource db {
 }
 
 model Game {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  createdAt   DateTime @default(now())
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  name         String
+  description  String
+  instructions Instruction[]
+}
+
+model Instruction {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  gameId    Int      @unique
+  game      Game     @relation(fields: [gameId], references: [id])
+  steps     Step[]
+}
+
+model Step {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now())
+  instructionId Int
+  instruction   Instruction @relation(fields: [instructionId], references: [id])
+  order         Int?
+  content       String
 }

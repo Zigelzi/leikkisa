@@ -1,4 +1,4 @@
-import { error, type Actions } from '@sveltejs/kit';
+import { error, type Actions, redirect } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
@@ -19,16 +19,14 @@ export const actions: Actions = {
 				message: 'Required fields missing'
 			});
 
-		await prisma.game.create({
+		const newGame = await prisma.game.create({
 			data: {
 				name,
 				description
 			}
 		});
 
-		return {
-			status: 201
-		};
+		throw redirect(303, `/leikki/${String(newGame.id)}`);
 	},
 
 	deleteGame: async ({ url }) => {
