@@ -7,9 +7,7 @@
 	<p class="mb-4 font-light">{game.description}</p>
 	<div class="space-x-4">
 		<a
-			href="#"
-			target="_blank"
-			rel="noopener noreferrer"
+			href="/leikki/{String(game.id)}"
 			class="px-3 py-2 text-sm bg-slate-600 rounded-lg text-white inline-block">Pelaa</a
 		>
 		<form action="?/deleteGame&id={game.id}" method="POST" class="inline-block">

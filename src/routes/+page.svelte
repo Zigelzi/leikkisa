@@ -15,10 +15,7 @@
 	</div>
 </div>
 <div class="mb-8">
-	<AddGameForm />
-</div>
-<div class="mb-8">
-	<h2 class="text-4xl mb-8">Leikit</h2>
+	<h2 class="text-4xl mb-6">Leikit</h2>
 	<div class="space-y-4">
 		{#if games.length > 0}
 			{#each games as game}
@@ -28,4 +25,7 @@
 			<p class="text-light">Yhtään peliä ei löytynyt. :(</p>
 		{/if}
 	</div>
+</div>
+<div class="mb-8">
+	<AddGameForm />
 </div>

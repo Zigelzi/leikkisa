@@ -8,7 +8,6 @@
 				name="name"
 				id="name"
 				class="border-slate-400 border-2 w-full p-2 rounded-lg"
-				required
 			/>
 		</div>
 		<div>
@@ -18,7 +17,6 @@
 				id="description"
 				class="block border-2 border-slate-400 w-full p-2 rounded-lg"
 				rows="3"
-				required
 			/>
 		</div>
 		<button type="submit" class="px-6 py-2 bg-slate-600 text-white rounded-lg">Lisää</button>

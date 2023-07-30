@@ -1,6 +1,5 @@
-import type { Actions } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
-import { fail } from 'assert';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -11,22 +10,21 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	createGame: async ({ request }) => {
-		const { name, description } = Object.fromEntries(await request.formData()) as {
-			name: string;
-			description: string;
-		};
+		const data = await request.formData();
+		const name = data.get('name') as string;
+		const description = data.get('description') as string;
 
-		try {
-			await prisma.game.create({
-				data: {
-					name,
-					description
-				}
+		if (!hasRequiredFields(data))
+			throw error(400, {
+				message: 'Required fields missing'
 			});
-		} catch (err) {
-			console.log(err);
-			return fail('Could not create a new game.');
-		}
+
+		await prisma.game.create({
+			data: {
+				name,
+				description
+			}
+		});
 
 		return {
 			status: 201
@@ -36,21 +34,29 @@ export const actions: Actions = {
 	deleteGame: async ({ url }) => {
 		const id = url.searchParams.get('id');
 		if (!id) {
-			return fail(`No article found with ID ${id}`);
-		}
-		try {
-			await prisma.game.delete({
-				where: {
-					id: Number(id)
-				}
+			throw error(404, {
+				message: 'Game with given id was not found'
 			});
-		} catch (err) {
-			console.log(err);
-			return fail('Something went wrong while deleting the game');
 		}
+		await prisma.game.delete({
+			where: {
+				id: Number(id)
+			}
+		});
 
 		return {
 			status: 201
 		};
 	}
 };
+
+function hasRequiredFields(form: FormData) {
+	const name = form.get('name');
+	const description = form.get('description');
+
+	if (!name || !description) {
+		return false;
+	}
+
+	return true;
+}
