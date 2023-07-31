@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/Button.svelte';
 	import type { PageData } from './$types';
 	import AddGameForm from './AddGameForm.svelte';
 	import Game from './Game.svelte';
@@ -27,5 +28,9 @@
 	</div>
 </div>
 <div class="mb-8">
+	<h2 class="text-5xl font-heading mb-6">Lisää leikki</h2>
+	<p>Onko sinulla leikki jonka haluat jakaa muiden kanssa?</p>
+	<Button href="/leikki/lisaa" text="Lisää se Leikkisään!" />
+
 	<AddGameForm />
 </div>

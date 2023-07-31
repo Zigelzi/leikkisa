@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import Card from '$lib/Card.svelte';
+	import Button from '$lib/Button.svelte';
 
 	export let data: PageData;
 
@@ -9,7 +10,7 @@
 
 <div class="mt-8">
 	<div class="mb-8">
-		<a href="/" class="px-6 py-2 bg-slate-600 text-white rounded-lg">Etusivulle</a>
+		<Button href="/" text="Etusivulle" />
 	</div>
 	<div class="space-y-4">
 		<div class="mb-6">
