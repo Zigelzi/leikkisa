@@ -9,29 +9,6 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	createGame: async ({ request }) => {
-		const data = await request.formData();
-		const name = data.get('name') as string;
-		const description = data.get('description') as string;
-
-		if (!hasRequiredFields(data))
-			throw error(400, {
-				message: 'Required fields missing'
-			});
-
-		const newGame = await prisma.game.create({
-			data: {
-				name,
-				description,
-				instructions: {
-					create: { content: 'Testing' }
-				}
-			}
-		});
-
-		throw redirect(303, `/leikki/${String(newGame.id)}`);
-	},
-
 	deleteGame: async ({ url }) => {
 		const id = url.searchParams.get('id');
 		if (!id) {
@@ -49,19 +26,8 @@ export const actions: Actions = {
 				id: Number(id)
 			}
 		});
-		const transaction = await prisma.$transaction([deleteInstructions, deleteGame]);
+		await prisma.$transaction([deleteInstructions, deleteGame]);
 
 		throw redirect(301, '/');
 	}
 };
-
-function hasRequiredFields(form: FormData) {
-	const name = form.get('name');
-	const description = form.get('description');
-
-	if (!name || !description) {
-		return false;
-	}
-
-	return true;
-}
