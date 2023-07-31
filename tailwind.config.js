@@ -4,7 +4,8 @@ export default {
 	theme: {
 		extend: {},
 		fontFamily: {
-			sans: ['Be Vietnam Pro', 'sans-serif']
+			sans: ['Open Sans', 'sans-serif'],
+			heading: ['Caveat', 'sans-serif']
 		}
 	},
 	plugins: []

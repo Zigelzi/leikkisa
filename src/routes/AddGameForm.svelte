@@ -1,5 +1,5 @@
 <div class="space-y-4 bg-slate-200 px-6 py-8 rounded shadow">
-	<h2 class="text-xl font-bold">Lisää leikki</h2>
+	<h2 class="text-xl font-bold font-heading">Lisää leikki</h2>
 	<form action="?/createGame" method="POST" class="space-y-4">
 		<div class="space-y-2">
 			<label for="name" class="block"> Nimi </label>
@@ -23,7 +23,7 @@
 		</div>
 		<div>
 			<div class="mb-4">
-				<h3 class="font-bold">Ohjeet</h3>
+				<h3 class="font-bold font-heading">Ohjeet</h3>
 				<p class="text-slate-600 text-sm">Lisää leikin ohjeet vaiheittain</p>
 			</div>
 			<div class="space-y-2">

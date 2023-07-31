@@ -8,7 +8,7 @@
     Actions
  -->
 <div class="p-6 border border-slate-400 rounded shadow">
-	<h5 class="text-lg text-bold mb-3">
+	<h5 class="text-3xl text-bold mb-3 font-heading">
 		<slot name="title" />
 	</h5>
 	<p class="mb-4 font-light">

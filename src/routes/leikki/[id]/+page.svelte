@@ -13,14 +13,14 @@
 	</div>
 	<div class="space-y-4">
 		<div class="mb-6">
-			<h2 class="text-2xl font-bold sm:text-4xl mb-4">{game.name}</h2>
+			<h2 class="text-4xl font-bold sm:text-4xl mb-4 font-heading">{game.name}</h2>
 			<p>{game.description}</p>
 		</div>
 		<div>
-			<h2 class="text-xl">Tarvikkeet</h2>
+			<h2 class="text-2xl font-heading">Tarvikkeet</h2>
 		</div>
 		<div>
-			<h2 class="text-xl">Ohjeet</h2>
+			<h2 class="text-2xl font-heading">Ohjeet</h2>
 		</div>
 	</div>
 	<div class="my-8">

@@ -11,10 +11,5 @@
 			href="/leikki/{String(game.id)}"
 			class="px-3 py-2 text-sm bg-slate-600 rounded-lg text-white inline-block">Pelaa</a
 		>
-		<form action="?/deleteGame&id={game.id}" method="POST" class="inline-block">
-			<button type="submit" class="px-3 py-2 text-sm bg-slate-400 text-white rounded-lg"
-				>Poista</button
-			>
-		</form>
 	</div>
 </Card>
