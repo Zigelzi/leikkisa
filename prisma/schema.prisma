@@ -21,16 +21,8 @@ model Game {
 model Instruction {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  gameId    Int      @unique
   game      Game     @relation(fields: [gameId], references: [id])
-  steps     Step[]
-}
-
-model Step {
-  id            Int         @id @default(autoincrement())
-  createdAt     DateTime    @default(now())
-  instructionId Int
-  instruction   Instruction @relation(fields: [instructionId], references: [id])
-  order         Int?
-  content       String
+  gameId    Int
+  order     Int?
+  content   String
 }

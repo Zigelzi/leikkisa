@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import Card from '$lib/Card.svelte';
 
 	export let data: PageData;
 
@@ -21,5 +22,17 @@
 		<div>
 			<h2 class="text-xl">Ohjeet</h2>
 		</div>
+	</div>
+	<div class="my-8">
+		<Card>
+			<span slot="title">Toiminnot</span>
+			<span slot="actions">
+				<form action="/?/deleteGame&id={game.id}" method="POST" class="inline-block">
+					<button type="submit" class="px-3 py-2 text-sm bg-slate-400 text-white rounded-lg"
+						>Poista</button
+					>
+				</form>
+			</span>
+		</Card>
 	</div>
 </div>

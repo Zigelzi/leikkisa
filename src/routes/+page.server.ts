@@ -22,7 +22,10 @@ export const actions: Actions = {
 		const newGame = await prisma.game.create({
 			data: {
 				name,
-				description
+				description,
+				instructions: {
+					create: { content: 'Testing' }
+				}
 			}
 		});
 
@@ -36,15 +39,19 @@ export const actions: Actions = {
 				message: 'Game with given id was not found'
 			});
 		}
-		await prisma.game.delete({
+		const deleteInstructions = prisma.instruction.deleteMany({
+			where: {
+				gameId: Number(id)
+			}
+		});
+		const deleteGame = prisma.game.delete({
 			where: {
 				id: Number(id)
 			}
 		});
+		const transaction = await prisma.$transaction([deleteInstructions, deleteGame]);
 
-		return {
-			status: 201
-		};
+		throw redirect(301, '/');
 	}
 };
 
