@@ -29,5 +29,5 @@
 <div class="mb-8">
 	<h2 class="text-5xl font-heading mb-6">Lisää leikki</h2>
 	<p>Onko sinulla leikki jonka haluat jakaa muiden kanssa?</p>
-	<Button href="/leikki/lisaa" text="Lisää se Leikkisään!" />
+	<Button href="/leikki/lisaa" element="a">Lisää se Leikkisään!</Button>
 </div>

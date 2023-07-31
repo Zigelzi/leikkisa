@@ -10,7 +10,7 @@
 
 <div class="mt-8">
 	<div class="mb-8">
-		<Button href="/" text="Etusivulle" />
+		<Button href="/" element="a">Etusivulle</Button>
 	</div>
 	<div class="space-y-4">
 		<div class="mb-6">
@@ -29,9 +29,7 @@
 			<span slot="title">Toiminnot</span>
 			<span slot="actions">
 				<form action="/?/deleteGame&id={game.id}" method="POST" class="inline-block">
-					<button type="submit" class="px-3 py-2 text-sm bg-slate-400 text-white rounded-lg"
-						>Poista</button
-					>
+					<Button type="submit" element="button">Poista</Button>
 				</form>
 			</span>
 		</Card>

@@ -1,12 +1,14 @@
 <script lang="ts">
-	export let href: string = '';
-	export let text: string = 'Action';
+	export let element = 'button' || 'a';
 </script>
 
-{#if href}
-	<a {href} class="px-3 py-2 text-sm bg-slate-600 rounded-lg text-white inline-block">{text}</a>
-{:else}
-	<button on:click {...$$restProps} class="my-2 block px-6 py-2 bg-slate-600 text-white rounded-lg"
-		>{text}</button
-	>
-{/if}
+<svelte:element
+	this={element}
+	class="px-3 py-2 text-sm bg-slate-600 rounded-lg text-white inline-block"
+	{...$$restProps}
+	on:click
+	role="button"
+	tabindex="0"
+>
+	<slot />
+</svelte:element>

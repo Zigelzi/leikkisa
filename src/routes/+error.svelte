@@ -8,7 +8,7 @@
 		<h1 class="text-4xl mb-8 text-center font-heading">Something went wrong!</h1>
 		{#if $page.error}
 			<p class="text-center mb-6">{$page.error.message}</p>
-			<Button href="/" text="Takaisin etusivulle" />
+			<Button href="/" element="a">Takaisin etusivulle</Button>
 		{/if}
 	</div>
 </div>

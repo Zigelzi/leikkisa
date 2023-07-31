@@ -62,10 +62,10 @@
 					bind:value={instructionContent}
 				/>
 			</div>
-			<Button on:click={addInstruction} type="button" text="Lisää vaihe" />
+			<Button on:click={addInstruction} type="button" element="button">Lisää vaihe</Button>
 		</div>
 		<div>
-			<Button action="?/createGame" text="Lisää leikki" />
+			<Button action="?/createGame" element="button" type="submit">Lisää leikki</Button>
 		</div>
 	</form>
 </div>
