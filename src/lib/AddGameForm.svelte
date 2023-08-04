@@ -1,20 +1,31 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
 
-	let instructionContent = '';
-	let instructions: { order: number; content: string }[] = [];
+	let newGame = {
+		instructions: [] as Instruction[]
+	} as Game;
+	let instructions = [] as Instruction[];
+	let newInstruction = {} as Instruction;
+	let isAddingInstruction = false;
+
+	function toggleNewInstruction() {
+		isAddingInstruction = !isAddingInstruction;
+	}
 
 	function addInstruction() {
-		let instruction = {
-			order: instructions.length + 1,
-			content: instructionContent
-		};
+		if (newInstruction.content === '' || newInstruction.content === undefined) return;
 
-		if (instructionContent) {
-			instructions.push(instruction);
-			instructionContent = '';
-			instructions = instructions;
-		}
+		newInstruction.order = instructions.length + 1;
+		newInstruction.game = newGame;
+		instructions.push(newInstruction);
+		newInstruction = {} as Instruction;
+		instructions = instructions;
+		addInstructionsToGame();
+		isAddingInstruction = false;
+	}
+
+	function addInstructionsToGame() {
+		newGame.instructions = instructions;
 	}
 </script>
 
@@ -28,6 +39,7 @@
 				id="name"
 				class="border-slate-400 border-2 w-full p-2 rounded-lg"
 				required
+				bind:value={newGame.name}
 			/>
 		</div>
 		<div class="space-y-2">
@@ -38,6 +50,7 @@
 				class="block border-2 border-slate-400 w-full p-2 rounded-lg"
 				rows="3"
 				required
+				bind:value={newGame.description}
 			/>
 		</div>
 		<div class="my-6">
@@ -52,19 +65,25 @@
 					{/each}
 				</ol>
 			</div>
-			<div class="space-y-2">
-				<label for="step" class="block">Kirjoita ohje</label>
-				<textarea
-					name="step"
-					id="step"
-					rows="4"
-					class="block border-2 border-slate-400 w-full p-2 rounded-lg"
-					bind:value={instructionContent}
-				/>
-			</div>
-			<Button on:click={addInstruction} type="button" element="button">Lisää vaihe</Button>
+			{#if !isAddingInstruction}
+				<div>
+					<Button on:click={toggleNewInstruction} type="button" element="button">Lisää ohje</Button>
+				</div>
+			{:else}
+				<div class="space-y-2 my-6">
+					<label for="step" class="block">Kirjoita ohje</label>
+					<textarea
+						name="step"
+						id="step"
+						rows="4"
+						class="block border-2 border-slate-400 w-full p-2 rounded-lg"
+						bind:value={newInstruction.content}
+					/>
+					<Button on:click={addInstruction} type="button" element="button">Lisää ohje</Button>
+				</div>
+			{/if}
 		</div>
-		<div>
+		<div class="py-8">
 			<Button action="?/createGame" element="button" type="submit">Lisää leikki</Button>
 		</div>
 	</form>
