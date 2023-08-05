@@ -31,7 +31,6 @@ model Instruction {
 model Location {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  game      Game     @relation(fields: [gameId], references: [id])
-  gameId    Int
   name      String   @unique
+  games     Game[]
 }
