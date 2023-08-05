@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData;
 </script>
@@ -13,6 +13,11 @@
 		<h2 class="text-4xl font-heading mb-4">Lisää paikka</h2>
 		<p>Eri leikit sopivat eri paikkoihin. Lisää paikka jossa leikkiä voi leikkiä.</p>
 	</div>
+	{#if form?.success}
+		<div class="my-6 p-4 bg-green-400 rounded-lg">
+			<p>{form.data.name} luotiin onnistuneesti!</p>
+		</div>
+	{/if}
 	<form action="" method="post" class="my-8">
 		<label for="name" class="block font-bold mb-2">Nimi</label>
 		<input

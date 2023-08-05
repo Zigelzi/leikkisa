@@ -11,10 +11,12 @@ export const actions: Actions = {
 			return fail(400, { locationName, missing: true });
 		}
 
-		await prisma.location.create({
+		const createdLocation = await prisma.location.create({
 			data: {
 				name: locationName
 			}
 		});
+
+		return { success: true, data: createdLocation };
 	}
 };
