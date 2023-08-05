@@ -6,7 +6,8 @@ export const load: PageServerLoad = async ({ params }) => {
 	const game = await prisma.game.findUnique({
 		where: {
 			id: Number(params.id)
-		}
+		},
+		include: { instructions: true }
 	});
 
 	if (!game) {

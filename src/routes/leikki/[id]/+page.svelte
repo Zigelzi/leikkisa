@@ -22,6 +22,11 @@
 		</div>
 		<div>
 			<h2 class="text-2xl font-heading">Ohjeet</h2>
+			<ol>
+				{#each game.instructions as instruction}
+					<li>{instruction.order} - {instruction.content}</li>
+				{/each}
+			</ol>
 		</div>
 	</div>
 	<div class="my-8">

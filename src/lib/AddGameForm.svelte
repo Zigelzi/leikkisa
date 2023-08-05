@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import { goto } from '$app/navigation';
 
 	let newGame = {
 		instructions: [] as Instruction[]
@@ -7,6 +8,19 @@
 	let instructions = [] as Instruction[];
 	let newInstruction = {} as Instruction;
 	let isAddingInstruction = false;
+
+	async function addGame() {
+		const response = await fetch('/api/leikki', {
+			method: 'POST',
+			body: JSON.stringify(newGame)
+		});
+		const data = await response.json();
+		if (!response.ok) {
+			console.log(data);
+			return;
+		}
+		goto(`/leikki/${data.id}`);
+	}
 
 	function toggleNewInstruction() {
 		isAddingInstruction = !isAddingInstruction;
@@ -16,12 +30,10 @@
 		if (newInstruction.content === '' || newInstruction.content === undefined) return;
 
 		newInstruction.order = instructions.length + 1;
-		newInstruction.game = newGame;
 		instructions.push(newInstruction);
 		newInstruction = {} as Instruction;
 		instructions = instructions;
 		addInstructionsToGame();
-		isAddingInstruction = false;
 	}
 
 	function addInstructionsToGame() {
@@ -30,7 +42,7 @@
 </script>
 
 <div class="space-y-">
-	<form action="?/createGame" method="POST" class="">
+	<form on:submit|preventDefault={addGame}>
 		<div class="space-y-2">
 			<label for="name" class="block"> Nimi </label>
 			<input
@@ -84,7 +96,7 @@
 			{/if}
 		</div>
 		<div class="py-8">
-			<Button action="?/createGame" element="button" type="submit">Lisää leikki</Button>
+			<Button element="button">Lisää leikki</Button>
 		</div>
 	</form>
 </div>

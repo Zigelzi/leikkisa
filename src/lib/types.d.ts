@@ -9,7 +9,7 @@ interface Game {
 interface Instruction {
 	id?: number;
 	createdAt?: Date;
-	game: Game;
+	game?: Game;
 	gameId?: number;
 	order?: number;
 	content: string;
