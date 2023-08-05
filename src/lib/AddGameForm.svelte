@@ -41,10 +41,10 @@
 	}
 </script>
 
-<div class="space-y-">
-	<form on:submit|preventDefault={addGame}>
-		<div class="space-y-2">
-			<label for="name" class="block"> Nimi </label>
+<div>
+	<form on:submit|preventDefault={addGame} class="space-y-6">
+		<div>
+			<label for="name" class="block font-bold mb-2"> Nimi </label>
 			<input
 				type="text"
 				name="name"
@@ -55,7 +55,7 @@
 			/>
 		</div>
 		<div class="space-y-2">
-			<label for="description" class="block"> Kuvaus </label>
+			<label for="description" class="block font-bold mb-2"> Kuvaus </label>
 			<textarea
 				name="description"
 				id="description"
@@ -66,11 +66,11 @@
 			/>
 		</div>
 		<div class="my-6">
-			<div class="mb-4">
+			<div class="mb-2">
 				<h3 class="font-heading text-2xl">Ohjeet</h3>
 				<p class="text-slate-600 text-sm">Lisää leikin ohjeet vaiheittain</p>
 			</div>
-			<div class="my-6">
+			<div class="mb-6">
 				<ol>
 					{#each instructions as instruction}
 						<li>{instruction.order} - {instruction.content}</li>
@@ -82,8 +82,8 @@
 					<Button on:click={toggleNewInstruction} type="button" element="button">Lisää ohje</Button>
 				</div>
 			{:else}
-				<div class="space-y-2 my-6">
-					<label for="step" class="block">Kirjoita ohje</label>
+				<div class="my-4">
+					<label for="step" class="block font-bold mb-2">Kirjoita ohje</label>
 					<textarea
 						name="step"
 						id="step"
@@ -91,8 +91,8 @@
 						class="block border-2 border-slate-400 w-full p-2 rounded-lg"
 						bind:value={newInstruction.content}
 					/>
-					<Button on:click={addInstruction} type="button" element="button">Lisää ohje</Button>
 				</div>
+				<Button on:click={addInstruction} type="button" element="button">Lisää ohje</Button>
 			{/if}
 		</div>
 		<div class="py-8">

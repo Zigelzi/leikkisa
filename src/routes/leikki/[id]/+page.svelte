@@ -8,7 +8,7 @@
 	$: ({ game } = data);
 </script>
 
-<div class="mt-8">
+<div>
 	<div class="mb-8">
 		<Button href="/" element="a">Etusivulle</Button>
 	</div>
@@ -21,7 +21,7 @@
 			<h2 class="text-2xl font-heading">Tarvikkeet</h2>
 		</div>
 		<div>
-			<h2 class="text-2xl font-heading">Ohjeet</h2>
+			<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>
 			<ol>
 				{#each game.instructions as instruction}
 					<li>{instruction.order} - {instruction.content}</li>
