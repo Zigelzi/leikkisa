@@ -18,7 +18,16 @@
 			<p>{game.description}</p>
 		</div>
 		<div>
-			<h2 class="text-2xl font-heading">Tarvikkeet</h2>
+			<h2 class="text-2xl font-heading">Paikat</h2>
+			{#if game.locations.length > 0}
+				<ol>
+					{#each game.locations as location}
+						<li>{location.name}</li>
+					{/each}
+				</ol>
+			{:else}
+				<p>Sopivia paikkoja ei ole merkitty</p>
+			{/if}
 		</div>
 		<div>
 			<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>

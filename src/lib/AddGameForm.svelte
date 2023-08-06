@@ -2,12 +2,25 @@
 	import Button from '$lib/Button.svelte';
 	import { goto } from '$app/navigation';
 
+	const locations = getLocations();
+
 	let newGame = {
-		instructions: [] as Instruction[]
+		instructions: [] as Instruction[],
+		locations: [] as Location[]
 	} as Game;
+
+	$: {
+		console.log(newGame);
+	}
 	let instructions = [] as Instruction[];
 	let newInstruction = {} as Instruction;
 	let isAddingInstruction = false;
+
+	async function getLocations() {
+		const response = await fetch('/api/paikka');
+		const locations = await response.json();
+		return locations;
+	}
 
 	async function addGame() {
 		const response = await fetch('/api/leikki', {
@@ -64,6 +77,23 @@
 				required
 				bind:value={newGame.description}
 			/>
+		</div>
+		<div>
+			<label for="location" class="block font-bold mb-2"> Paikka </label>
+			<select
+				name="location"
+				id="location"
+				class="px-4 py-2 bg-white border-2 border-slate-400 rounded-lg"
+				bind:value={newGame.locations}
+			>
+				{#await locations}
+					<option value="none">Ladataan paikkoja</option>
+				{:then value}
+					{#each value as location}
+						<option value={location.id}>{location.name}</option>
+					{/each}
+				{/await}
+			</select>
 		</div>
 		<div class="my-6">
 			<div class="mb-2">

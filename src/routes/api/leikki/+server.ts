@@ -17,8 +17,14 @@ export const POST: RequestHandler = async ({ request }) => {
 			description: gameData.description,
 			instructions: {
 				create: gameData.instructions
+			},
+			locations: {
+				connect: {
+					id: Number(gameData.locations)
+				}
 			}
 		}
 	});
+	console.log(createdGame);
 	return json(createdGame);
 };
