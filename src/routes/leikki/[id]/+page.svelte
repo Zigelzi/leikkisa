@@ -8,44 +8,39 @@
 	$: ({ game } = data);
 </script>
 
-<div>
-	<div class="mb-8">
-		<Button href="/" element="a">Etusivulle</Button>
+<div class="space-y-4">
+	<div class="mb-6">
+		<h2 class="text-4xl font-bold sm:text-4xl mb-4 font-heading">{game.name}</h2>
+		<p>{game.description}</p>
 	</div>
-	<div class="space-y-4">
-		<div class="mb-6">
-			<h2 class="text-4xl font-bold sm:text-4xl mb-4 font-heading">{game.name}</h2>
-			<p>{game.description}</p>
-		</div>
-		<div>
-			<h2 class="text-2xl font-heading">Paikat</h2>
-			{#if game.locations.length > 0}
-				<ol>
-					{#each game.locations as location}
-						<li>{location.name}</li>
-					{/each}
-				</ol>
-			{:else}
-				<p>Sopivia paikkoja ei ole merkitty</p>
-			{/if}
-		</div>
-		<div>
-			<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>
+	<div>
+		<h2 class="text-2xl font-heading">Paikat</h2>
+		{#if game.locations.length > 0}
 			<ol>
-				{#each game.instructions as instruction}
-					<li>{instruction.order} - {instruction.content}</li>
+				{#each game.locations as location}
+					<li>{location.name}</li>
 				{/each}
 			</ol>
-		</div>
+		{:else}
+			<p>Sopivia paikkoja ei ole merkitty</p>
+		{/if}
 	</div>
-	<div class="my-8">
-		<Card>
-			<span slot="title">Toiminnot</span>
-			<span slot="actions">
-				<form action="/?/deleteGame&id={game.id}" method="POST" class="inline-block">
-					<Button type="submit" element="button">Poista</Button>
-				</form>
-			</span>
-		</Card>
+	<div>
+		<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>
+		<ol>
+			{#each game.instructions as instruction}
+				<li>{instruction.order} - {instruction.content}</li>
+			{/each}
+		</ol>
 	</div>
+</div>
+<div class="my-8">
+	<Card>
+		<span slot="title">Toiminnot</span>
+		<span slot="actions">
+			<form action="/?/deleteGame&id={game.id}" method="POST" class="inline-block">
+				<Button type="submit" element="button">Poista</Button>
+			</form>
+		</span>
+	</Card>
 </div>
