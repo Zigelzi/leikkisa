@@ -2,10 +2,20 @@
 	import type { PageData } from './$types';
 	import Card from '$lib/Card.svelte';
 	import Button from '$lib/Button.svelte';
+	import { browser } from '$app/environment';
+	import { posthog } from 'posthog-js';
 
 	export let data: PageData;
 
 	$: ({ game } = data);
+
+	if (browser) {
+		let game = data.game;
+		posthog.capture('Game viewed', {
+			numberOfInstructions: Number(game.instructions.length),
+			location: game.locations[0].name
+		});
+	}
 </script>
 
 <div class="space-y-4">
