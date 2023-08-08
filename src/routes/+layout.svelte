@@ -1,6 +1,11 @@
 <script>
 	import '../app.css';
 	import Navigation from '$lib/Navigation.svelte';
+	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
+	import { posthog } from 'posthog-js';
+
+	$: $page.url.pathname, browser && posthog.capture('$pageview');
 </script>
 
 <header>

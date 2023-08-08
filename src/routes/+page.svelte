@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import { posthog } from 'posthog-js';
 	import type { PageData } from './$types';
 	import Game from './Game.svelte';
 
@@ -31,5 +32,11 @@
 		<h2 class="text-5xl font-heading mb-6">Lisää leikki</h2>
 		<p>Onko sinulla leikki jonka haluat jakaa muiden kanssa?</p>
 	</div>
-	<Button href="/leikki/lisaa" element="a">Lisää se Leikkisään!</Button>
+	<Button
+		href="/leikki/lisaa"
+		element="a"
+		on:click={() => {
+			posthog.capture('Game creation started');
+		}}>Lisää se Leikkisään!</Button
+	>
 </section>

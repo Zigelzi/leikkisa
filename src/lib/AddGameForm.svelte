@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
 	import { goto } from '$app/navigation';
+	import { posthog } from 'posthog-js';
 
 	const locations = getLocations();
 
@@ -8,10 +9,6 @@
 		instructions: [] as Instruction[],
 		locations: [] as Location[]
 	} as Game;
-
-	$: {
-		console.log(newGame);
-	}
 	let instructions = [] as Instruction[];
 	let newInstruction = {} as Instruction;
 	let isAddingInstruction = false;
@@ -29,7 +26,6 @@
 		});
 		const data = await response.json();
 		if (!response.ok) {
-			console.log(data);
 			return;
 		}
 		goto(`/leikki/${data.id}`);
@@ -37,6 +33,7 @@
 
 	function toggleNewInstruction() {
 		isAddingInstruction = !isAddingInstruction;
+		posthog.capture('Instruction create started');
 	}
 
 	function addInstruction() {
@@ -47,10 +44,15 @@
 		newInstruction = {} as Instruction;
 		instructions = instructions;
 		addInstructionsToGame();
+		posthog.capture('Instruction added');
 	}
 
 	function addInstructionsToGame() {
 		newGame.instructions = instructions;
+	}
+
+	function createGame() {
+		posthog.capture('Game created');
 	}
 </script>
 
@@ -126,7 +128,7 @@
 			{/if}
 		</div>
 		<div class="py-8">
-			<Button element="button">Lisää leikki</Button>
+			<Button element="button" on:click={createGame}>Lisää leikki</Button>
 		</div>
 	</form>
 </div>
