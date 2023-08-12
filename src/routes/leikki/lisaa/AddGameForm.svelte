@@ -11,7 +11,7 @@
 	} as Game;
 	let instructions = [] as Instruction[];
 	let newInstruction = {} as Instruction;
-	let isAddingInstruction = false;
+	let isAddingInstruction = true;
 
 	async function getLocations() {
 		const response = await fetch('/api/paikka');
@@ -37,7 +37,7 @@
 	}
 
 	function addInstruction() {
-		if (newInstruction.content === '' || newInstruction.content === undefined) return;
+		if (newInstruction.action === '' || newInstruction.action === undefined) return;
 
 		newInstruction.order = instructions.length + 1;
 		instructions.push(newInstruction);
@@ -105,7 +105,13 @@
 			<div class="mb-6">
 				<ol>
 					{#each instructions as instruction}
-						<li>{instruction.order} - {instruction.content}</li>
+						<li>
+							{instruction.order}.
+							<div>
+								<p>{instruction.description}</p>
+								<p class="italic">{instruction.action}</p>
+							</div>
+						</li>
 					{/each}
 				</ol>
 			</div>
@@ -114,14 +120,23 @@
 					<Button on:click={toggleNewInstruction} type="button" element="button">Lisää ohje</Button>
 				</div>
 			{:else}
-				<div class="my-4">
-					<label for="step" class="block font-bold mb-2">Kirjoita ohje</label>
+				<div class="my-4 space-y-4">
+					<h4>Kirjoita ohje</h4>
+					<label for="instructionSay" class="block font-bold mb-2">Sano</label>
 					<textarea
-						name="step"
-						id="step"
-						rows="4"
+						name="instructionSay"
+						id="instructionSay"
+						rows="3"
 						class="block border-2 border-slate-400 w-full p-2 rounded-lg"
-						bind:value={newInstruction.content}
+						bind:value={newInstruction.description}
+					/>
+					<label for="instructionDo" class="block font-bold mb-2">Tee</label>
+					<textarea
+						name="instructionDo"
+						id="instructionDo"
+						rows="3"
+						class="block border-2 border-slate-400 w-full p-2 rounded-lg"
+						bind:value={newInstruction.action}
 					/>
 				</div>
 				<Button on:click={addInstruction} type="button" element="button">Lisää ohje</Button>

@@ -42,9 +42,17 @@
 	</div>
 	<div>
 		<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>
-		<ol>
+		<ol class="space-y-6">
 			{#each game.instructions as instruction}
-				<li>{instruction.order} - {instruction.content}</li>
+				<li>
+					<div class="inline-block">
+						<p class="text-2xl mb-2 mr-4">{instruction.order}</p>
+					</div>
+					<div class="inline-block">
+						<p>{instruction.description}</p>
+						<p class="italic">{instruction.action}</p>
+					</div>
+				</li>
 			{/each}
 		</ol>
 	</div>

@@ -20,12 +20,13 @@ model Game {
 }
 
 model Instruction {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  game      Game     @relation(fields: [gameId], references: [id])
-  gameId    Int
-  order     Int?
-  content   String
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  game        Game     @relation(fields: [gameId], references: [id])
+  gameId      Int
+  order       Int?
+  action      String
+  description String?
 }
 
 model Location {

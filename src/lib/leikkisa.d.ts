@@ -13,7 +13,8 @@ interface Instruction {
 	game?: Game;
 	gameId?: number;
 	order?: number;
-	content: string;
+	action: string;
+	description?: string;
 }
 
 interface Location {
