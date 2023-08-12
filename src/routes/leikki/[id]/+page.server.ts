@@ -1,4 +1,4 @@
-import { fail } from 'assert';
+import { posthog } from 'posthog-js';
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 

@@ -6,14 +6,19 @@
 	import { posthog } from 'posthog-js';
 
 	export let data: PageData;
-
-	$: ({ game } = data);
+	let game = data.game;
 
 	if (browser) {
-		let game = data.game;
 		posthog.capture('Game viewed', {
 			numberOfInstructions: Number(game.instructions.length),
-			location: game.locations[0].name
+			location: game.locations[0] ? game.locations[0].name : null
+		});
+	}
+
+	function emitDeleteEvent() {
+		posthog.capture('Game deleted', {
+			gameId: game.id,
+			gameName: game.name
 		});
 	}
 </script>
@@ -49,7 +54,7 @@
 		<span slot="title">Toiminnot</span>
 		<span slot="actions">
 			<form action="/?/deleteGame&id={game.id}" method="POST" class="inline-block">
-				<Button type="submit" element="button">Poista</Button>
+				<Button type="submit" element="button" on:click={emitDeleteEvent}>Poista</Button>
 			</form>
 		</span>
 	</Card>

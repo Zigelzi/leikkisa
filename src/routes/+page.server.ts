@@ -1,6 +1,7 @@
-import { error, type Actions, redirect } from '@sveltejs/kit';
+import { error, type Actions, redirect, fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
+import posthog from 'posthog-js';
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -12,7 +13,7 @@ export const actions: Actions = {
 	deleteGame: async ({ url }) => {
 		const id = url.searchParams.get('id');
 		if (!id) {
-			throw error(404, {
+			return fail(404, {
 				message: 'Game with given id was not found'
 			});
 		}
@@ -26,8 +27,13 @@ export const actions: Actions = {
 				id: Number(id)
 			}
 		});
-		await prisma.$transaction([deleteInstructions, deleteGame]);
-
-		throw redirect(301, '/');
+		try {
+			await prisma.$transaction([deleteInstructions, deleteGame]);
+			throw redirect(301, '/');
+		} catch (err) {
+			return fail(502, {
+				message: 'Something went wrong while deleting the game. Try again later'
+			});
+		}
 	}
 };

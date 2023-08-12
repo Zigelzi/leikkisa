@@ -7,7 +7,6 @@ export const load: LayoutLoad = async () => {
 		posthog.init('phc_3eQ8MJ5FapTO3x95QR2v1OMiGkBLpzJBUJZySQ1QQuL', {
 			api_host: 'https://eu.posthog.com'
 		});
-		console.log('Test');
 	}
 
 	return;
