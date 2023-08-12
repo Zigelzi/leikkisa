@@ -26,7 +26,7 @@
 <div class="space-y-4">
 	<div class="mb-6">
 		<h2 class="text-4xl font-bold sm:text-4xl mb-4 font-heading">{game.name}</h2>
-		<p>{game.description}</p>
+		<p class="whitespace-pre-wrap">{game.description}</p>
 	</div>
 	<div>
 		<h2 class="text-2xl font-heading">Paikat</h2>
