@@ -1,7 +1,6 @@
-import { error, type Actions, redirect, fail } from '@sveltejs/kit';
+import { type Actions, redirect, fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
-import posthog from 'posthog-js';
 
 export const load: PageServerLoad = async () => {
 	return {

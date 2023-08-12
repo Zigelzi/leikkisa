@@ -61,7 +61,7 @@
 	<Card>
 		<span slot="title">Toiminnot</span>
 		<span slot="actions">
-			<form action="/?/deleteGame&id={game.id}" method="POST" class="inline-block">
+			<form action="/leikki?/deleteGame&id={game.id}" method="POST" class="inline-block">
 				<Button type="submit" element="button" on:click={emitDeleteEvent}>Poista</Button>
 			</form>
 		</span>
