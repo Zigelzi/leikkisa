@@ -17,6 +17,8 @@ model Game {
   description  String
   instructions Instruction[]
   locations    Location[]
+  gameType     GameType      @relation(fields: [gameTypeId], references: [id])
+  gameTypeId   Int
 }
 
 model Instruction {
@@ -33,5 +35,12 @@ model Location {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   name      String   @unique
+  games     Game[]
+}
+
+model GameType {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String
   games     Game[]
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import Card from '$lib/Card.svelte';
 	import { currentPageTitle } from '$lib/stores';
 	import { posthog } from 'posthog-js';
 
@@ -12,7 +13,13 @@
 		<p>Kirjasto leikeistä joiden avulla liikut ja pidät hauskaa lastesi kanssa!</p>
 	</div>
 </section>
-
+<section class="mb-6">
+	<a href="/leikki">
+		<Card>
+			<span slot="title">Lorut vauvalle</span>
+		</Card>
+	</a>
+</section>
 <section class="mb-8">
 	<div class="mb-6">
 		<h2 class="text-5xl font-heading mb-6">Lisää leikki</h2>

@@ -7,6 +7,7 @@
 
 	export let data: PageData;
 	let game = data.game;
+	console.log(game);
 
 	if (browser) {
 		posthog.capture('Game viewed', {
@@ -25,7 +26,10 @@
 
 <div class="space-y-4">
 	<div class="mb-6">
-		<h2 class="text-4xl font-bold sm:text-4xl mb-4 font-heading">{game.name}</h2>
+		<div class="mb-4">
+			<h2 class="text-4xl font-bold sm:text-4xl font-heading">{game.name}</h2>
+			<p class="text-sm capitalize text-slate-600">{game.gameType.name}</p>
+		</div>
 		<p class="whitespace-pre-wrap">{game.description}</p>
 	</div>
 	<div>

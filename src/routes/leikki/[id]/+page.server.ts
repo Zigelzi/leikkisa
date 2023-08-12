@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		where: {
 			id: Number(params.id)
 		},
-		include: { instructions: true, locations: true }
+		include: { instructions: true, locations: true, gameType: true }
 	});
 
 	if (!game) {
