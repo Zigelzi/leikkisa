@@ -1,9 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import { currentPageTitle } from '$lib/stores';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
+	$currentPageTitle = 'Paikka';
 	let locations = data.locations;
 </script>
 

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte';
+	import { currentPageTitle } from '$lib/stores';
 	import { posthog } from 'posthog-js';
+
+	$currentPageTitle = 'Etusivu';
 </script>
 
 <section class="min-h-[80vh] flex items-center">
