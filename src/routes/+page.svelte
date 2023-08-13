@@ -16,7 +16,7 @@
 <section class="mb-6">
 	<a href="/leikki">
 		<Card>
-			<span slot="title">Lorut vauvalle</span>
+			<span slot="title">Lorut</span>
 		</Card>
 	</a>
 </section>

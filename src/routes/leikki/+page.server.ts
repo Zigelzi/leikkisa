@@ -4,7 +4,13 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	return {
-		games: await prisma.game.findMany()
+		games: await prisma.game.findMany({
+			include: {
+				locations: true,
+				gameType: true
+			}
+		}),
+		gameTypes: await prisma.gameType.findMany()
 	};
 };
 

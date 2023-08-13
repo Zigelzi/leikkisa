@@ -7,18 +7,25 @@
 	export let data: PageData;
 
 	$: ({ games } = data);
+	let gameTypes = data.gameTypes;
+	let selectedGameType = gameTypes[0].id;
 </script>
 
 <section class="mb-8">
-	<h2 class="text-5xl mb-6 font-heading">Leikit</h2>
-	<div class="mb-8">
-		<Button
-			href="/leikki/lisaa"
-			element="a"
-			on:click={() => {
-				posthog.capture('Game creation started');
-			}}>Lisää leikki</Button
-		>
+	<div class="mb-8 flex justify-between items-center">
+		<h2 class="text-5xl font-heading">Leikit</h2>
+		<div>
+			<Button
+				href="/leikki/lisaa"
+				element="a"
+				on:click={() => {
+					posthog.capture('Game creation started');
+				}}>Lisää leikki</Button
+			>
+		</div>
+	</div>
+	<div>
+		<label for="selectedGameType">Valitse</label>
 	</div>
 	<div class="space-y-4">
 		{#if games.length > 0}

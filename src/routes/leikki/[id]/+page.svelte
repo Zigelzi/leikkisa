@@ -7,7 +7,6 @@
 
 	export let data: PageData;
 	let game = data.game;
-	console.log(game);
 
 	if (browser) {
 		posthog.capture('Game viewed', {

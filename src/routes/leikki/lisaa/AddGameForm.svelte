@@ -3,23 +3,23 @@
 	import { goto } from '$app/navigation';
 	import { posthog } from 'posthog-js';
 
-	const locations = getLocations();
+	export let locations: Location[] = [];
+	export let gameTypes: GameType[] = [];
+
+	let selectedLocationId: Number;
+	let selectedGameTypeId: Number;
 
 	let newGame = {
-		instructions: [] as Instruction[],
-		locations: [] as Location[]
+		instructions: [] as Instruction[]
 	} as Game;
+
 	let instructions = [] as Instruction[];
 	let newInstruction = {} as Instruction;
 	let isAddingInstruction = true;
 
-	async function getLocations() {
-		const response = await fetch('/api/paikka');
-		const locations = await response.json();
-		return locations;
-	}
-
 	async function addGame() {
+		newGame.locationId = selectedLocationId;
+		newGame.gameTypeId = selectedGameTypeId;
 		const response = await fetch('/api/leikki', {
 			method: 'POST',
 			body: JSON.stringify(newGame)
@@ -85,14 +85,33 @@
 			<select
 				name="location"
 				id="location"
-				class="px-4 py-2 bg-white border-2 border-slate-400 rounded-lg"
-				bind:value={newGame.locations}
+				class="px-4 py-2 bg-white border-2 border-slate-400 rounded-lg capitalize"
+				bind:value={selectedLocationId}
 			>
+				<option disabled value="0" selected>Valitse paikka</option>
 				{#await locations}
-					<option value="none">Ladataan paikkoja</option>
+					<option value="-1">Ladataan paikkoja</option>
 				{:then value}
 					{#each value as location}
-						<option value={location.id}>{location.name}</option>
+						<option value={location.id} class="">{location.name}</option>
+					{/each}
+				{/await}
+			</select>
+		</div>
+		<div>
+			<label for="gameType" class="block font-bold mb-2"> Leikkitapa </label>
+			<select
+				name="gameType"
+				id="gameType"
+				class="px-4 py-2 bg-white border-2 border-slate-400 rounded-lg capitalize"
+				bind:value={selectedGameTypeId}
+			>
+				<option disabled value="0" selected>Valitse tyyppi</option>
+				{#await gameTypes}
+					<option value="-1">Ladataan leikkitapoja</option>
+				{:then value}
+					{#each value as gameType}
+						<option value={gameType.id} class="">{gameType.name}</option>
 					{/each}
 				{/await}
 			</select>

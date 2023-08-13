@@ -20,11 +20,15 @@ export const POST: RequestHandler = async ({ request }) => {
 			},
 			locations: {
 				connect: {
-					id: Number(gameData.locations)
+					id: Number(gameData.locationId)
+				}
+			},
+			gameType: {
+				connect: {
+					id: Number(gameData.gameTypeId)
 				}
 			}
 		}
 	});
-	console.log(createdGame);
 	return json(createdGame);
 };

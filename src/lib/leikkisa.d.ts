@@ -4,7 +4,10 @@ interface Game {
 	name: string;
 	description: string;
 	instructions?: Instruction[];
-	locations?: Location[] | number;
+	locations: Location[];
+	locationId: Number;
+	gameType: GameType;
+	gameTypeId: Number;
 }
 
 interface Instruction {
@@ -22,4 +25,11 @@ interface Location {
 	createdAt?: Date;
 	name: String;
 	games?: Game[];
+}
+
+interface GameType {
+	id?;
+	createdAt?;
+	name;
+	games?;
 }
