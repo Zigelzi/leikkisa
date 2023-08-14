@@ -4,7 +4,7 @@
 	import { browser } from '$app/environment';
 	import { posthog } from 'posthog-js';
 	import { currentPageTitle } from '$lib/stores';
-	import Navigation from '$lib/Navigation.svelte';
+	import Navigation from '$lib/components/Navigation.svelte';
 
 	$: $page.url.pathname, browser && posthog.capture('$pageview');
 </script>

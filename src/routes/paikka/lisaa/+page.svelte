@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData;

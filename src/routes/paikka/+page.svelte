@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { currentPageTitle } from '$lib/stores';
 	import type { PageData } from './$types';
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Card from '$lib/Card.svelte';
-	import Button from '$lib/Button.svelte';
+	import Card from '$lib/components/Card.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import { browser } from '$app/environment';
 	import { posthog } from 'posthog-js';
 

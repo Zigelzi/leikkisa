@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
 <div class="flex items-center min-h-[80vh] text-center justify-center">

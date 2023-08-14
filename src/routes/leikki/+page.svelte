@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Game from '$lib/Game.svelte';
-	import Button from '$lib/Button.svelte';
+	import Game from '$lib/components/Game.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import posthog from 'posthog-js';
 
 	export let data: PageData;
