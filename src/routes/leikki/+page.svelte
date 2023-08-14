@@ -7,8 +7,13 @@
 	export let data: PageData;
 
 	$: ({ games } = data);
-	let gameTypes = data.gameTypes;
-	let selectedGameType = gameTypes[0].id;
+	let gameTypes: GameType[] = [{ id: 0, name: 'Kaikki' }];
+	gameTypes = [...gameTypes, ...data.gameTypes];
+	let selectedGameType: GameType;
+
+	$: {
+		console.log(selectedGameType);
+	}
 </script>
 
 <section class="mb-8">
@@ -24,8 +29,19 @@
 			>
 		</div>
 	</div>
-	<div>
-		<label for="selectedGameType">Valitse</label>
+	<div class="mb-8">
+		<label for="gameType" class="block font-bold mb-2"> Leikkitapa </label>
+		<select
+			name="gameType"
+			id="gameType"
+			class="px-4 py-2 bg-white border-2 border-slate-400 rounded-lg capitalize"
+			bind:value={selectedGameType}
+		>
+			{#each gameTypes as gameType}
+				<option value={gameType} class="">{gameType.name}</option>
+			{/each}
+		</select>
+		<form action="" />
 	</div>
 	<div class="space-y-4">
 		{#if games.length > 0}
