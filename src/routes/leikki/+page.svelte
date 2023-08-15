@@ -11,8 +11,10 @@
 	gameTypes = [...gameTypes, ...data.gameTypes];
 	let selectedGameType: GameType;
 
-	$: {
-		console.log(selectedGameType);
+	async function updateFilter() {
+		const response = await fetch(`/api/leikki/leikkitapa/${selectedGameType.id}`);
+		const data = await response.json();
+		games = data;
 	}
 </script>
 
@@ -36,12 +38,12 @@
 			id="gameType"
 			class="px-4 py-2 bg-white border-2 border-slate-400 rounded-lg capitalize"
 			bind:value={selectedGameType}
+			on:change={updateFilter}
 		>
 			{#each gameTypes as gameType}
 				<option value={gameType} class="">{gameType.name}</option>
 			{/each}
 		</select>
-		<form action="" />
 	</div>
 	<div class="space-y-4">
 		{#if games.length > 0}
