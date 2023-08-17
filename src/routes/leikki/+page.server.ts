@@ -2,15 +2,34 @@ import { type Actions, redirect, fail } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
-	return {
-		games: await prisma.game.findMany({
+export const load: PageServerLoad = async ({ url }) => {
+	const gameTypeId: number = Number(url.searchParams.get('gameType')) || 0;
+	let games;
+	let gameTypes = await prisma.gameType.findMany();
+
+	console.log(gameTypeId);
+	if (gameTypeId === 0) {
+		games = await prisma.game.findMany({
 			include: {
 				locations: true,
 				gameType: true
 			}
-		}),
-		gameTypes: await prisma.gameType.findMany()
+		});
+	} else {
+		games = await prisma.game.findMany({
+			where: {
+				gameTypeId: gameTypeId
+			},
+			include: {
+				locations: true,
+				gameType: true
+			}
+		});
+	}
+	console.log(games);
+	return {
+		games,
+		gameTypes
 	};
 };
 

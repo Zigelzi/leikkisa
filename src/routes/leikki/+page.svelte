@@ -3,18 +3,16 @@
 	import Game from '$lib/components/Game.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import posthog from 'posthog-js';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
-	$: ({ games } = data);
 	let gameTypes: GameType[] = [{ id: 0, name: 'Kaikki' }];
 	gameTypes = [...gameTypes, ...data.gameTypes];
 	let selectedGameType: GameType;
 
 	async function updateFilter() {
-		const response = await fetch(`/api/leikki/leikkitapa/${selectedGameType.id}`);
-		const data = await response.json();
-		games = data;
+		goto(`?gameType=${selectedGameType.id}`);
 	}
 </script>
 
@@ -46,8 +44,8 @@
 		</select>
 	</div>
 	<div class="space-y-4">
-		{#if games.length > 0}
-			{#each games as game}
+		{#if data.games.length > 0}
+			{#each data.games as game}
 				<Game {game} />
 			{/each}
 		{:else}

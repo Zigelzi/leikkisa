@@ -14,7 +14,7 @@
 	</div>
 </section>
 <section class="mb-6">
-	<a href="/leikki">
+	<a href="/leikki?gameType=1">
 		<Card>
 			<span slot="title">Lorut</span>
 		</Card>
