@@ -1,4 +1,5 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma';
 
 export const GET: RequestHandler = async ({ url }) => {
 	const gameTypeId: number = Number(url.searchParams.get('gameType')) || 0;
