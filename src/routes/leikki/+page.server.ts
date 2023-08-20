@@ -7,7 +7,6 @@ export const load: PageServerLoad = async ({ url }) => {
 	let games;
 	let gameTypes = await prisma.gameType.findMany();
 
-	console.log(gameTypeId);
 	if (gameTypeId === 0) {
 		games = await prisma.game.findMany({
 			include: {
@@ -26,7 +25,6 @@ export const load: PageServerLoad = async ({ url }) => {
 			}
 		});
 	}
-	console.log(games);
 	return {
 		games,
 		gameTypes

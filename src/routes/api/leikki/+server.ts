@@ -1,5 +1,22 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
 
+export const GET: RequestHandler = async ({ url }) => {
+	const gameTypeId: number = Number(url.searchParams.get('gameType')) || 0;
+	let games;
+
+	if (gameTypeId === 0) {
+		games = await prisma.game.findMany();
+	} else {
+		games = await prisma.game.findMany({
+			where: {
+				gameTypeId: gameTypeId
+			}
+		});
+	}
+
+	return json(games);
+};
+
 export const POST: RequestHandler = async ({ request }) => {
 	const gameData = (await request.json()) as Game;
 
