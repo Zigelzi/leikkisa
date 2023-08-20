@@ -126,17 +126,6 @@
 				<p class="text-slate-600 text-sm">Lisää leikin ohjeet vaiheittain</p>
 			</div>
 			<div class="mb-6">
-				<!-- <ol>
-					{#each instructions as instruction}
-						<li>
-							{instruction.order}.
-							<div>
-								<p>{instruction.description}</p>
-								<p class="italic">{instruction.action}</p>
-							</div>
-						</li>
-					{/each}
-				</ol> -->
 				<ol class="space-y-6">
 					{#each instructions as instruction}
 						<li class="flex items-center">
