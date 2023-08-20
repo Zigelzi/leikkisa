@@ -9,7 +9,8 @@
 
 	let gameTypes: GameType[] = [{ id: 0, name: 'Kaikki' }];
 	gameTypes = [...gameTypes, ...data.gameTypes];
-	let selectedGameType: GameType;
+	let selectedGameType: GameType =
+		gameTypes.find((gameType) => gameType.id === data.selectedGameTypeId) || gameTypes[0];
 
 	async function updateFilter() {
 		goto(`?gameType=${selectedGameType.id}`);

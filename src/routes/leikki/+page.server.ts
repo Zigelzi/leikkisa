@@ -3,11 +3,11 @@ import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
-	const gameTypeId: number = Number(url.searchParams.get('gameType')) || 0;
+	const selectedGameTypeId: number = Number(url.searchParams.get('gameType')) || 0;
 	let games;
 	let gameTypes = await prisma.gameType.findMany();
 
-	if (gameTypeId === 0) {
+	if (selectedGameTypeId === 0) {
 		games = await prisma.game.findMany({
 			include: {
 				locations: true,
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async ({ url }) => {
 	} else {
 		games = await prisma.game.findMany({
 			where: {
-				gameTypeId: gameTypeId
+				gameTypeId: selectedGameTypeId
 			},
 			include: {
 				locations: true,
@@ -27,7 +27,8 @@ export const load: PageServerLoad = async ({ url }) => {
 	}
 	return {
 		games,
-		gameTypes
+		gameTypes,
+		selectedGameTypeId
 	};
 };
 
