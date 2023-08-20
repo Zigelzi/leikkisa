@@ -2,10 +2,12 @@
 	import Button from '$lib/components/Button.svelte';
 	import { goto } from '$app/navigation';
 	import { posthog } from 'posthog-js';
+	import { tick } from 'svelte';
 
 	export let locations: Location[] = [];
 	export let gameTypes: GameType[] = [];
 
+	let instructionSayInput: HTMLElement;
 	let selectedLocationId: Number;
 	let selectedGameTypeId: Number;
 
@@ -36,7 +38,7 @@
 		posthog.capture('Instruction create started');
 	}
 
-	function addInstruction() {
+	async function addInstruction() {
 		if (newInstruction.action === '' || newInstruction.action === undefined) return;
 
 		newInstruction.order = instructions.length + 1;
@@ -45,6 +47,8 @@
 		instructions = instructions;
 		addInstructionsToGame();
 		posthog.capture('Instruction added');
+		await tick;
+		instructionSayInput.focus();
 	}
 
 	function addInstructionsToGame() {
@@ -122,12 +126,27 @@
 				<p class="text-slate-600 text-sm">Lisää leikin ohjeet vaiheittain</p>
 			</div>
 			<div class="mb-6">
-				<ol>
+				<!-- <ol>
 					{#each instructions as instruction}
 						<li>
 							{instruction.order}.
 							<div>
 								<p>{instruction.description}</p>
+								<p class="italic">{instruction.action}</p>
+							</div>
+						</li>
+					{/each}
+				</ol> -->
+				<ol class="space-y-6">
+					{#each instructions as instruction}
+						<li class="flex items-center">
+							<div class="inline-block">
+								<p class="text-4xl mr-4">{instruction.order}</p>
+							</div>
+							<div class="inline-block">
+								{#if instruction.description}
+									<p>{instruction.description}</p>
+								{/if}
 								<p class="italic">{instruction.action}</p>
 							</div>
 						</li>
@@ -140,7 +159,6 @@
 				</div>
 			{:else}
 				<div class="my-4 space-y-4">
-					<h4>Kirjoita ohje</h4>
 					<label for="instructionSay" class="block font-bold mb-2">Sano</label>
 					<textarea
 						name="instructionSay"
@@ -148,6 +166,7 @@
 						rows="3"
 						class="block border-2 border-slate-400 w-full p-2 rounded-lg"
 						bind:value={newInstruction.description}
+						bind:this={instructionSayInput}
 					/>
 					<label for="instructionDo" class="block font-bold mb-2">Tee</label>
 					<textarea
