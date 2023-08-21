@@ -11,14 +11,15 @@ datasource db {
 }
 
 model Game {
-  id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now())
-  name         String
-  description  String
-  instructions Instruction[]
-  locations    Location[]
-  gameType     GameType      @relation(fields: [gameTypeId], references: [id])
-  gameTypeId   Int
+  id            Int           @id @default(autoincrement())
+  createdAt     DateTime      @default(now())
+  name          String
+  description   String
+  instructions  Instruction[]
+  locations     Location[]
+  gameTypeId    Int
+  gameType      GameType      @relation(fields: [gameTypeId], references: [id])
+  ageCategories AgeCategory[]
 }
 
 model Instruction {
@@ -41,6 +42,15 @@ model Location {
 model GameType {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
+  name      String
+  games     Game[]
+}
+
+model AgeCategory {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  minAge    Int
+  maxAge    Int
   name      String
   games     Game[]
 }

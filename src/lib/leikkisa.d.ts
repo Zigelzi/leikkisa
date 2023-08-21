@@ -1,35 +1,45 @@
 interface Game {
-	id?: number;
+	id?: Number;
 	createdAt?: Date;
-	name: string;
-	description: string;
+	name: String;
+	description: String;
 	instructions?: Instruction[];
-	locations: Location[];
 	locationId: Number;
-	gameType: GameType;
+	locations: Location[];
 	gameTypeId: Number;
+	gameType: GameType;
+	ageCategories: AgeCategory[];
 }
 
 interface Instruction {
-	id?: number;
+	id?: Number;
 	createdAt?: Date;
 	game?: Game;
-	gameId?: number;
-	order?: number;
-	action: string;
-	description?: string;
+	gameId?: Number;
+	order?: Number;
+	action: String;
+	description?: String;
 }
 
 interface Location {
-	id?: number;
+	id?: Number;
 	createdAt?: Date;
 	name: String;
 	games?: Game[];
 }
 
 interface GameType {
-	id?;
-	createdAt?;
-	name;
-	games?;
+	id?: Number;
+	createdAt?: Date;
+	name: String;
+	games?: Game[];
+}
+
+interface AgeCategory {
+	id?: Number;
+	createdAt?: Date;
+	minAge: Number;
+	maxAge: Number;
+	name: String;
+	games?: Game[];
 }
