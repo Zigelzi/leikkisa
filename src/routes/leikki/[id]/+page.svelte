@@ -26,8 +26,22 @@
 <div class="space-y-4">
 	<div class="mb-6">
 		<div class="mb-4">
-			<h2 class="text-4xl font-bold sm:text-4xl font-heading">{game.name}</h2>
-			<p class="text-sm capitalize text-slate-600">{game.gameType.name}</p>
+			<h2 class="text-4xl font-bold sm:text-4xl font-heading mb-2">{game.name}</h2>
+			<div class="text-sm capitalize text-slate-600 space-y-1">
+				<p>
+					{game.gameType.name}
+				</p>
+				<div>
+					{#each game.ageCategories as ageCategory}
+						<span class="mr-2 inline-block"
+							>{ageCategory.name}
+							<span class="lowercase">
+								({ageCategory.minAge}-{ageCategory.maxAge} v)
+							</span>
+						</span>
+					{/each}
+				</div>
+			</div>
 		</div>
 		<p class="whitespace-pre-wrap">{game.description}</p>
 	</div>
