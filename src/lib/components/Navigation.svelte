@@ -3,7 +3,6 @@
 	<div id="nav-right">
 		<ol class="flex">
 			<li><a href="/leikki" class="p-4 block underline underline-offset-8">Leikit</a></li>
-			<li><a href="/paikka" class="p-4 block underline underline-offset-8">Paikat</a></li>
 		</ol>
 	</div>
 </nav>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import Game from '$lib/components/Game.svelte';
-	import Button from '$lib/components/Button.svelte';
 	import posthog from 'posthog-js';
 	import { goto } from '$app/navigation';
 
@@ -14,23 +13,15 @@
 
 	async function updateFilter() {
 		goto(`?gameType=${selectedGameType.id}`);
+		posthog.capture('Game type selected', {
+			gameType: selectedGameType.name
+		});
 	}
 </script>
 
 <section class="mb-8">
-	<div class="mb-8 flex justify-between items-center">
-		<h2 class="text-5xl font-heading">Leikit</h2>
-		<div>
-			<Button
-				href="/leikki/lisaa"
-				element="a"
-				on:click={() => {
-					posthog.capture('Game creation started');
-				}}>Lisää leikki</Button
-			>
-		</div>
-	</div>
-	<div class="mb-8">
+	<h2 class="text-5xl font-heading mb-8">Leikit</h2>
+	<div class="mb-16">
 		<label for="gameType" class="block font-bold mb-2"> Leikkitapa </label>
 		<select
 			name="gameType"

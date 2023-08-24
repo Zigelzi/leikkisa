@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Card from '$lib/components/Card.svelte';
-	import Button from '$lib/components/Button.svelte';
 	import { browser } from '$app/environment';
 	import { posthog } from 'posthog-js';
 
@@ -10,20 +8,31 @@
 
 	if (browser) {
 		posthog.capture('Game viewed', {
+			gameId: game.id,
+			gameName: game.name,
 			numberOfInstructions: Number(game.instructions.length),
 			location: game.locations[0] ? game.locations[0].name : null
 		});
 	}
 
-	function emitDeleteEvent() {
-		posthog.capture('Game deleted', {
+	function emitBackToGamesEvent() {
+		posthog.capture('Game list navigated', {
 			gameId: game.id,
-			gameName: game.name
+			gameName: game.name,
+			gameType: game.gameType.name,
+			source: 'game'
 		});
 	}
 </script>
 
 <div class="space-y-4">
+	<div class="my-8">
+		<a
+			href="/leikki?gameType={game.gameType.id}"
+			class="underline underline-offset-8"
+			on:click={emitBackToGamesEvent}>Takaisin</a
+		>
+	</div>
 	<div class="mb-6">
 		<div class="mb-4">
 			<h2 class="text-4xl font-bold sm:text-4xl font-heading mb-2">{game.name}</h2>
@@ -75,14 +84,4 @@
 			{/each}
 		</ol>
 	</div>
-</div>
-<div class="my-8">
-	<Card>
-		<span slot="title">Toiminnot</span>
-		<span slot="actions">
-			<form action="/leikki?/deleteGame&id={game.id}" method="POST" class="inline-block">
-				<Button type="submit" element="button" on:click={emitDeleteEvent}>Poista</Button>
-			</form>
-		</span>
-	</Card>
 </div>
