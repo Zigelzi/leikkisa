@@ -1,8 +1,8 @@
 interface Game {
 	id?: Number;
 	createdAt?: Date;
-	name: String;
-	description: String;
+	name: string;
+	description: string;
 	instructions?: Instruction[];
 	locationId: Number;
 	locations: Location[];
@@ -17,21 +17,21 @@ interface Instruction {
 	game?: Game;
 	gameId?: Number;
 	order?: Number;
-	action: String;
-	description?: String;
+	action: string;
+	description?: string;
 }
 
 interface Location {
 	id?: Number;
 	createdAt?: Date;
-	name: String;
+	name: string;
 	games?: Game[];
 }
 
 interface GameType {
 	id?: Number;
 	createdAt?: Date;
-	name: String;
+	name: string;
 	games?: Game[];
 }
 
@@ -40,6 +40,6 @@ interface AgeCategory {
 	createdAt?: Date;
 	minAge: Number;
 	maxAge: Number;
-	name: String;
+	name: string;
 	games?: Game[];
 }

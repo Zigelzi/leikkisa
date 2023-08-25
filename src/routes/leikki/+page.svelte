@@ -12,7 +12,10 @@
 		gameTypes.find((gameType) => gameType.id === data.selectedGameTypeId) || gameTypes[0];
 
 	async function updateFilter() {
-		goto(`?gameType=${selectedGameType.id}`);
+		const searchParams = new URLSearchParams({
+			gameType: selectedGameType.id?.toString() || '0'
+		});
+		goto(`?${searchParams}`);
 		posthog.capture('Game type selected', {
 			gameType: selectedGameType.name
 		});
@@ -22,18 +25,26 @@
 <section class="mb-8">
 	<h2 class="text-5xl font-heading mb-8">Leikit</h2>
 	<div class="mb-16">
-		<label for="gameType" class="block font-bold mb-2"> Leikkitapa </label>
-		<select
-			name="gameType"
-			id="gameType"
-			class="px-4 py-2 bg-white border-2 border-slate-400 rounded-lg capitalize"
-			bind:value={selectedGameType}
-			on:change={updateFilter}
-		>
+		<h3 class="font-bold mb-2">Leikkitavat</h3>
+		<fieldset class="flex">
 			{#each gameTypes as gameType}
-				<option value={gameType} class="">{gameType.name}</option>
+				<label
+					class="capitalize py-4 px-3 mr-6 bg-slate-100 focus-within:bg-slate-200 text-sm"
+					for={gameType.id?.toString()}
+					>{gameType.name}
+					<input
+						type="radio"
+						class="sr-only"
+						class:bg-slate-400={selectedGameType.name === gameType.name}
+						name={gameType.name}
+						id={gameType.id?.toString()}
+						value={gameType}
+						on:change={updateFilter}
+						bind:group={selectedGameType}
+					/>
+				</label>
 			{/each}
-		</select>
+		</fieldset>
 	</div>
 	<div class="space-y-4">
 		{#if data.games.length > 0}
