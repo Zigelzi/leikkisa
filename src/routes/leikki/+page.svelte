@@ -3,6 +3,7 @@
 	import Game from '$lib/components/Game.svelte';
 	import posthog from 'posthog-js';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	export let data: PageData;
 
@@ -11,11 +12,15 @@
 	let selectedGameType: GameType =
 		gameTypes.find((gameType) => gameType.id === data.selectedGameTypeId) || gameTypes[0];
 
-	async function updateFilter() {
+	$: if (selectedGameType) getGamesByType();
+
+	function getGamesByType() {
 		const searchParams = new URLSearchParams({
 			gameType: selectedGameType.id?.toString() || '0'
 		});
-		goto(`?${searchParams}`);
+		if (browser) {
+			goto(`?${searchParams}`);
+		}
 		posthog.capture('Game type selected', {
 			gameType: selectedGameType.name
 		});
@@ -30,16 +35,15 @@
 			{#each gameTypes as gameType}
 				<label
 					class="capitalize py-4 px-3 mr-6 bg-slate-100 focus-within:bg-slate-200 text-sm"
+					class:bg-slate-400={selectedGameType.name === gameType.name}
 					for={gameType.id?.toString()}
 					>{gameType.name}
 					<input
 						type="radio"
 						class="sr-only"
-						class:bg-slate-400={selectedGameType.name === gameType.name}
 						name={gameType.name}
 						id={gameType.id?.toString()}
 						value={gameType}
-						on:change={updateFilter}
 						bind:group={selectedGameType}
 					/>
 				</label>
