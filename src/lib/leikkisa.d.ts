@@ -43,3 +43,8 @@ interface AgeCategory {
 	name: string;
 	games?: Game[];
 }
+
+interface Icon {
+	name: string;
+	paths: string[];
+}

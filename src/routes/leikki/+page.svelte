@@ -4,6 +4,7 @@
 	import posthog from 'posthog-js';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
+	import Icon from '$lib/components/Icon/Icon.svelte';
 
 	export let data: PageData;
 
@@ -34,10 +35,14 @@
 		<fieldset class="flex">
 			{#each gameTypes as gameType}
 				<label
-					class="capitalize py-4 px-3 mr-6 bg-slate-100 focus-within:bg-slate-200 text-sm"
+					class="capitalize w-20 h-20 mr-2 bg-slate-100 focus-within:bg-slate-200 text-sm flex flex-col justify-center items-center"
 					class:bg-slate-400={selectedGameType.name === gameType.name}
 					for={gameType.id?.toString()}
-					>{gameType.name}
+				>
+					<Icon />
+					<span>
+						{gameType.name}
+					</span>
 					<input
 						type="radio"
 						class="sr-only"

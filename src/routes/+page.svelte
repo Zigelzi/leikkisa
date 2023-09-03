@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
+	import Icon from '$lib/components/Icon/Icon.svelte';
 	import { currentPageTitle } from '$lib/stores';
 	import { posthog } from 'posthog-js';
 	import type { PageData } from './$types';
