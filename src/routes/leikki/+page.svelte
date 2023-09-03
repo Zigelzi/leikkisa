@@ -8,7 +8,7 @@
 
 	export let data: PageData;
 
-	let gameTypes: GameType[] = [{ id: 0, name: 'Kaikki' }];
+	let gameTypes: GameType[] = [{ id: 0, name: 'Kaikki', iconName: 'telescope' }];
 	gameTypes = [...gameTypes, ...data.gameTypes];
 	let selectedGameType: GameType =
 		gameTypes.find((gameType) => gameType.id === data.selectedGameTypeId) || gameTypes[0];
@@ -39,7 +39,7 @@
 					class:bg-slate-400={selectedGameType.name === gameType.name}
 					for={gameType.id?.toString()}
 				>
-					<Icon />
+					<Icon name={gameType.iconName} />
 					<span>
 						{gameType.name}
 					</span>

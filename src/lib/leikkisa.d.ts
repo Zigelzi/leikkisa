@@ -32,6 +32,7 @@ interface GameType {
 	id?: Number;
 	createdAt?: Date;
 	name: string;
+	iconName: string;
 	games?: Game[];
 }
 

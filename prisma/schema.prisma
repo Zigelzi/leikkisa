@@ -43,6 +43,7 @@ model GameType {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   name      String
+  iconName  String
   games     Game[]
 }
 
