@@ -3,32 +3,48 @@ import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
-	const selectedGameTypeId: number = Number(url.searchParams.get('gameType')) || 0;
+	const selectedGameTypeId: string | null = url.searchParams.get('gameType');
+	const gameTypeId: number | null = selectedGameTypeId !== null ? Number(selectedGameTypeId) : null;
+
+	const selectedAgeCategoryId: string | null = url.searchParams.get('ageCategory');
+	const ageCategoryId: number | null =
+		selectedAgeCategoryId !== null ? Number(selectedAgeCategoryId) : null;
+
 	let games;
 	let gameTypes = await prisma.gameType.findMany();
+	let ageCategories = await prisma.ageCategory.findMany();
 
-	if (selectedGameTypeId === 0) {
+	if (selectedGameTypeId === null && selectedAgeCategoryId === null) {
 		games = await prisma.game.findMany({
 			include: {
 				locations: true,
-				gameType: true
+				gameType: true,
+				ageCategories: true
 			}
 		});
 	} else {
 		games = await prisma.game.findMany({
 			where: {
-				gameTypeId: selectedGameTypeId
+				...(gameTypeId && { gameTypeId }),
+				...(ageCategoryId && {
+					ageCategories: {
+						some: {
+							id: ageCategoryId
+						}
+					}
+				})
 			},
 			include: {
 				locations: true,
-				gameType: true
+				gameType: true,
+				ageCategories: true
 			}
 		});
 	}
 	return {
 		games,
 		gameTypes,
-		selectedGameTypeId
+		ageCategories
 	};
 };
 

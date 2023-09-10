@@ -3,35 +3,70 @@
 	import Game from '$lib/components/Game.svelte';
 	import posthog from 'posthog-js';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import Icon from '$lib/components/Icon/Icon.svelte';
 
 	export let data: PageData;
 
-	let gameTypes: GameType[] = [{ id: 0, name: 'Kaikki', iconName: 'telescope' }];
-	gameTypes = [...gameTypes, ...data.gameTypes];
-	let selectedGameType: GameType =
-		gameTypes.find((gameType) => gameType.id === data.selectedGameTypeId) || gameTypes[0];
+	let gameTypes: GameType[] = [{ name: 'Kaikki', iconName: 'telescope' }, ...data.gameTypes];
+	let selectedGameType: GameType = gameTypes[0];
 
-	$: if (selectedGameType) getGamesByType();
+	let ageCategories: AgeCategory[] = [
+		{ id: 0, name: 'Kaikki', minAge: 0, maxAge: 12 },
+		...data.ageCategories
+	];
+	let selectedAgeCategory: AgeCategory = ageCategories[0];
 
-	function getGamesByType() {
-		const searchParams = new URLSearchParams({
-			gameType: selectedGameType.id?.toString() || '0'
-		});
-		if (browser) {
-			goto(`?${searchParams}`);
+	function updateSearchParams(key: string, value: string) {
+		const searchParams = new URLSearchParams($page.url.searchParams);
+		searchParams.set(key, value);
+		if (!browser) return;
+
+		if (key === 'gameType') {
+			posthog.capture('Game type selected', {
+				gameType: selectedGameType.name
+			});
 		}
-		posthog.capture('Game type selected', {
-			gameType: selectedGameType.name
-		});
+
+		if (key === 'ageCategory') {
+			posthog.capture('Age category selected', {
+				ageCategory: selectedAgeCategory.name
+			});
+		}
+
+		goto(`?${searchParams}`);
 	}
 </script>
 
 <section class="mb-8">
 	<h2 class="text-5xl font-heading mb-8">Leikit</h2>
 	<div class="mb-16">
-		<h3 class="font-bold mb-2">Leikkitavat</h3>
+		<h3 class="mb-2">Ikä</h3>
+		<fieldset class="flex">
+			{#each ageCategories as ageCategory}
+				<label
+					class="capitalize p-4 mr-2 bg-slate-100 focus-within:bg-slate-200 text-sm flex flex-col justify-center items-center"
+					class:bg-slate-400={selectedAgeCategory.name === ageCategory.name}
+					for={ageCategory.name}
+				>
+					<p>{ageCategory.minAge}-{ageCategory.maxAge}</p>
+					<p>
+						{ageCategory.name}
+					</p>
+					<input
+						type="radio"
+						class="sr-only"
+						name={ageCategory.name}
+						id={ageCategory.name}
+						value={ageCategory.name}
+						bind:group={selectedAgeCategory}
+						on:change={() => updateSearchParams('ageCategory', ageCategory.id?.toString() ?? '0')}
+					/>
+				</label>
+			{/each}
+		</fieldset>
+		<h3 class="mb-2">Leikkitavat</h3>
 		<fieldset class="flex">
 			{#each gameTypes as gameType}
 				<label
@@ -48,8 +83,9 @@
 						class="sr-only"
 						name={gameType.name}
 						id={gameType.id?.toString()}
-						value={gameType}
+						value={gameType.name}
 						bind:group={selectedGameType}
+						on:change={() => updateSearchParams('gameType', gameType.id?.toString() ?? '0')}
 					/>
 				</label>
 			{/each}

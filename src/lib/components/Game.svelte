@@ -6,7 +6,19 @@
 
 <Card>
 	<span slot="title">{game.name}</span>
-	<span slot="content" class="whitespace-pre-wrap">{game.description}</span>
+	<div slot="content">
+		<div class="text-sm capitalize text-slate-600">
+			{#each game.ageCategories as ageCategory}
+				<span class="mr-2 inline-block capitalize"
+					>{ageCategory.name}
+					<span class="lowercase">
+						({ageCategory.minAge}-{ageCategory.maxAge} v)
+					</span>
+				</span>
+			{/each}
+		</div>
+		<span class="whitespace-pre-wrap">{game.description}</span>
+	</div>
 	<div slot="actions" class="space-x-4">
 		<Button href="/leikki/{String(game.id)}" element="a">Pelaa</Button>
 	</div>
