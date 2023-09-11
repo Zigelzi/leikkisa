@@ -59,7 +59,7 @@
 						class="sr-only"
 						name={ageCategory.name}
 						id={ageCategory.name}
-						value={ageCategory.name}
+						value={ageCategory}
 						bind:group={selectedAgeCategory}
 						on:change={() => updateSearchParams('ageCategory', ageCategory.id?.toString() ?? '0')}
 					/>
@@ -83,7 +83,7 @@
 						class="sr-only"
 						name={gameType.name}
 						id={gameType.id?.toString()}
-						value={gameType.name}
+						value={gameType}
 						bind:group={selectedGameType}
 						on:change={() => updateSearchParams('gameType', gameType.id?.toString() ?? '0')}
 					/>
