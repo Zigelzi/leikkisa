@@ -6,6 +6,8 @@
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import Icon from '$lib/components/Icon/Icon.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 
@@ -18,14 +20,34 @@
 	];
 	let selectedAgeCategory: AgeCategory = ageCategories[0];
 
+	onMount(() => {
+		//TODO: Selection flickers on reload. Check if this should be moved to +page.ts
+		const gameTypeId: string | null = $page.url.searchParams.get('gameType');
+		const ageCategoryId: string | null = $page.url.searchParams.get('ageCategory');
+
+		if (gameTypeId) {
+			selectedGameType =
+				gameTypes.find((gameType) => gameType.id === Number(gameTypeId)) || gameTypes[0];
+		}
+
+		if (ageCategoryId) {
+			selectedAgeCategory =
+				ageCategories.find((ageCategory) => ageCategory.id === Number(ageCategoryId)) ||
+				ageCategories[0];
+		}
+	});
+
 	function updateSearchParams(key: string, value: string) {
 		const searchParams = new URLSearchParams($page.url.searchParams);
 		searchParams.set(key, value);
+
 		if (!browser) return;
 
 		if (key === 'gameType') {
 			posthog.capture('Game type selected', {
 				gameType: selectedGameType.name
+				// TODO: Add count of games to both filters.
+				// TODO: Simplify filters to game filtered with event type and number of games.
 			});
 		}
 
@@ -34,8 +56,13 @@
 				ageCategory: selectedAgeCategory.name
 			});
 		}
-
 		goto(`?${searchParams}`);
+	}
+
+	function clearFilters() {
+		selectedAgeCategory = ageCategories[0];
+		selectedGameType = gameTypes[0];
+		goto('?');
 	}
 </script>
 
@@ -97,7 +124,10 @@
 				<Game {game} />
 			{/each}
 		{:else}
-			<p class="text-light">Yhtään peliä ei löytynyt. :(</p>
+			<h2 class="text-4xl font-heading">Täh?!</h2>
+			<p class="">Näillä suodattimilla ei löytynyt muka yhtään leikkiä.</p>
+			<Button on:click={clearFilters}>Nollaa suodattimet</Button>
+			<p>tai vaihda suodattimia sivun alusta.</p>
 		{/if}
 	</div>
 </section>
