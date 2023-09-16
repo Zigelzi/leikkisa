@@ -12,30 +12,13 @@
 	export let data: PageData;
 
 	let gameTypes: GameType[] = [{ name: 'Kaikki', iconName: 'telescope' }, ...data.gameTypes];
-	let selectedGameType: GameType = gameTypes[0];
+	let selectedGameType: GameType = data.selectedGameType || gameTypes[0];
 
 	let ageCategories: AgeCategory[] = [
 		{ id: 0, name: 'Kaikki', minAge: 0, maxAge: 12 },
 		...data.ageCategories
 	];
-	let selectedAgeCategory: AgeCategory = ageCategories[0];
-
-	onMount(() => {
-		//TODO: Selection flickers on reload. Check if this should be moved to +page.ts
-		const gameTypeId: string | null = $page.url.searchParams.get('gameType');
-		const ageCategoryId: string | null = $page.url.searchParams.get('ageCategory');
-
-		if (gameTypeId) {
-			selectedGameType =
-				gameTypes.find((gameType) => gameType.id === Number(gameTypeId)) || gameTypes[0];
-		}
-
-		if (ageCategoryId) {
-			selectedAgeCategory =
-				ageCategories.find((ageCategory) => ageCategory.id === Number(ageCategoryId)) ||
-				ageCategories[0];
-		}
-	});
+	let selectedAgeCategory: AgeCategory = data.selectedAgeCategory || ageCategories[0];
 
 	function updateSearchParams(key: string, value: string) {
 		const searchParams = new URLSearchParams($page.url.searchParams);
