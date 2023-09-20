@@ -5,6 +5,7 @@
 
 	export let data: PageData;
 	let game = data.game;
+	console.dir(game);
 
 	if (browser) {
 		posthog.capture('Game viewed', {
@@ -25,8 +26,8 @@
 	}
 </script>
 
-<div class="space-y-4">
-	<div class="my-8">
+<div class="">
+	<div class="my-4">
 		<a
 			href="/leikki?gameType={game.gameType.id}"
 			class="underline underline-offset-8"
@@ -40,31 +41,40 @@
 				<p>
 					{game.gameType.name}
 				</p>
-				<div>
-					{#each game.ageCategories as ageCategory}
-						<span class="mr-2 inline-block"
-							>{ageCategory.name}
-							<span class="lowercase">
-								({ageCategory.minAge}-{ageCategory.maxAge} v)
-							</span>
-						</span>
-					{/each}
-				</div>
 			</div>
 		</div>
 		<p class="whitespace-pre-wrap">{game.description}</p>
 	</div>
-	<div>
-		<h2 class="text-2xl font-heading">Paikat</h2>
-		{#if game.locations.length > 0}
-			<ol>
-				{#each game.locations as location}
-					<li>{location.name}</li>
-				{/each}
-			</ol>
-		{:else}
-			<p>Sopivia paikkoja ei ole merkitty</p>
-		{/if}
+	<div class="flex justify-between">
+		<div>
+			<h2 class="text-xl font-heading">Paikka</h2>
+			{#if game.locations.length > 0}
+				<ol class="text-sm">
+					{#each game.locations as location}
+						<li>{location.name}</li>
+					{/each}
+				</ol>
+			{:else}
+				<p class="text-sm">Sopivia paikkoja ei ole merkitty</p>
+			{/if}
+		</div>
+		<div>
+			<h2 class="text-xl font-heading">Lapsen ikä</h2>
+			{#if game.ageCategories.length > 0}
+				<ol class="text-sm">
+					{#each game.ageCategories as ageCategory}
+						<li>
+							<span class="capitalize">{ageCategory.name}</span>
+							<span>
+								({ageCategory.minAge}-{ageCategory.maxAge} v)
+							</span>
+						</li>
+					{/each}
+				</ol>
+			{:else}
+				<p>Sopivia paikkoja ei ole merkitty</p>
+			{/if}
+		</div>
 	</div>
 	<div>
 		<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>

@@ -15,6 +15,6 @@
 <header>
 	<Navigation />
 </header>
-<main class="container mx-auto px-4 mt-8 mb-60 xl:max-w-4xl">
+<main class="container mx-auto px-4 mb-60 xl:max-w-4xl">
 	<slot />
 </main>
