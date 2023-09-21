@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import { posthog } from 'posthog-js';
+	import Button from '$lib/components/Button.svelte';
 
 	export let data: PageData;
 	let game = data.game;
-	console.dir(game);
 
 	if (browser) {
 		posthog.capture('Game viewed', {
@@ -15,26 +16,11 @@
 			location: game.locations[0] ? game.locations[0].name : null
 		});
 	}
-
-	function emitBackToGamesEvent() {
-		posthog.capture('Game list navigated', {
-			gameId: game.id,
-			gameName: game.name,
-			gameType: game.gameType.name,
-			source: 'game'
-		});
-	}
 </script>
 
 <div class="">
-	<div class="my-4">
-		<a
-			href="/leikki?gameType={game.gameType.id}"
-			class="underline underline-offset-8"
-			on:click={emitBackToGamesEvent}>Takaisin</a
-		>
-	</div>
-	<div class="mb-6">
+	<!-- Game description -->
+	<div class="my-6">
 		<div class="mb-4">
 			<h2 class="text-4xl font-bold sm:text-4xl font-heading mb-2">{game.name}</h2>
 			<div class="text-sm capitalize text-slate-600 space-y-1">
@@ -45,6 +31,7 @@
 		</div>
 		<p class="whitespace-pre-wrap">{game.description}</p>
 	</div>
+	<!-- Game details -->
 	<div class="flex justify-between">
 		<div>
 			<h2 class="text-xl font-heading">Paikka</h2>
@@ -76,22 +63,8 @@
 			{/if}
 		</div>
 	</div>
+	<!-- Actions -->
 	<div>
-		<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>
-		<ol class="space-y-6">
-			{#each game.instructions as instruction}
-				<li class="flex items-center">
-					<div class="inline-block">
-						<p class="text-4xl mr-4">{instruction.order}</p>
-					</div>
-					<div class="inline-block">
-						{#if instruction.description}
-							<p>{instruction.description}</p>
-						{/if}
-						<p class="italic">{instruction.action}</p>
-					</div>
-				</li>
-			{/each}
-		</ol>
+		<Button href={$page.url.pathname + '/ohje'} element="a">Aloita leikki</Button>
 	</div>
 </div>
