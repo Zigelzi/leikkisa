@@ -3,7 +3,6 @@
 
 	export let data: PageData;
 	let game = data.game;
-	console.dir(game);
 </script>
 
 <div>

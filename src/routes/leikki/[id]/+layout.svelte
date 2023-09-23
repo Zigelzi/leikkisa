@@ -5,8 +5,13 @@
 	import { page } from '$app/stores';
 
 	export let data: LayoutData;
-	let previousPage: string = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));
+
+	const gameRouteId = '/leikki/[id]';
+	let previousPage: string;
+	$: previousPage = $page.url.pathname.substring(0, $page.url.pathname.lastIndexOf('/'));
+
 	let game = data.game;
+	let gameFilters: URLSearchParams;
 
 	function emitBackToGamesEvent() {
 		posthog.capture('Game list navigated', {
@@ -18,14 +23,14 @@
 	}
 
 	afterNavigate(({ from }) => {
-		// TODO: Fix back button going to previous page, not to parent path.
-		let previousPageWithSearchParams: string | undefined = from?.url.pathname;
 		if (from?.url.searchParams && from?.url.searchParams.size > 0) {
-			previousPageWithSearchParams += '?' + from?.url.searchParams;
+			gameFilters = from?.url.searchParams;
 		}
-		previousPage = previousPageWithSearchParams || previousPage;
+
+		if ($page.route.id === gameRouteId && gameFilters) {
+			previousPage += '?' + gameFilters;
+		}
 	});
-	$: console.log(previousPage);
 </script>
 
 <div class="mt-2 mb-8">
