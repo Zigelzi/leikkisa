@@ -1,16 +1,17 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
-	import Icon from '$lib/components/Icon/Icon.svelte';
 	import { currentPageTitle } from '$lib/stores';
 	import { posthog } from 'posthog-js';
+	import events from '$lib/events';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
 	$currentPageTitle = 'Etusivu';
 
 	function emitGameListView(gameType: GameType) {
-		posthog.capture('Game list navigated', {
-			gameType: gameType.name,
+		posthog.capture(`${events.game.name} ${events.game.actions.browsed}`, {
+			selectedGameType: gameType.name,
 			source: 'index'
 		});
 	}
@@ -52,7 +53,8 @@
 			class="underline underline-offset-8"
 			on:click={() => {
 				emitGameListView({
-					name: 'Kaikki'
+					name: 'Kaikki',
+					iconName: 'telescope'
 				});
 			}}>Katso kaikki leikit</a
 		>

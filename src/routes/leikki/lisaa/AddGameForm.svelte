@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { posthog } from 'posthog-js';
 	import { tick } from 'svelte';
+	import events from '$lib/events.ts';
 
 	export let locations: Location[] = [];
 	export let gameTypes: GameType[] = [];
@@ -35,7 +36,7 @@
 
 	function toggleNewInstruction() {
 		isAddingInstruction = !isAddingInstruction;
-		posthog.capture('Instruction create started');
+		posthog.capture(`${events.instruction.name} ${events.instruction.actions.addingStarted}`);
 	}
 
 	async function addInstruction() {
@@ -46,7 +47,7 @@
 		newInstruction = {} as Instruction;
 		instructions = instructions;
 		addInstructionsToGame();
-		posthog.capture('Instruction added');
+		posthog.capture(`${events.instruction.name} ${events.instruction.actions.added}`);
 		await tick;
 		instructionSayInput.focus();
 	}
@@ -56,7 +57,7 @@
 	}
 
 	function createGame() {
-		posthog.capture('Game created');
+		posthog.capture(`${events.game.name} ${events.game.actions.created}`);
 	}
 </script>
 

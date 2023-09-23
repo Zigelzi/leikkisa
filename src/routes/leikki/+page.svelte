@@ -8,6 +8,7 @@
 	import Icon from '$lib/components/Icon/Icon.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { onMount } from 'svelte';
+	import events from '$lib/events';
 
 	export let data: PageData;
 
@@ -27,7 +28,7 @@
 		if (!browser) return;
 
 		if (key === 'gameType') {
-			posthog.capture('Game type selected', {
+			posthog.capture(`${events.gameType.name} ${events.gameType.actions.selected}`, {
 				gameType: selectedGameType.name
 				// TODO: Add count of games to both filters.
 				// TODO: Simplify filters to game filtered with event type and number of games.
@@ -35,7 +36,7 @@
 		}
 
 		if (key === 'ageCategory') {
-			posthog.capture('Age category selected', {
+			posthog.capture(`${events.ageCategory.name} ${events.ageCategory.actions.selected}`, {
 				ageCategory: selectedAgeCategory.name
 			});
 		}

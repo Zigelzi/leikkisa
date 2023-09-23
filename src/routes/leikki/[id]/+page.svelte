@@ -4,12 +4,13 @@
 	import { page } from '$app/stores';
 	import { posthog } from 'posthog-js';
 	import Button from '$lib/components/Button.svelte';
+	import events from '$lib/events';
 
 	export let data: PageData;
 	let game = data.game;
 
 	if (browser) {
-		posthog.capture('Game viewed', {
+		posthog.capture(`${events.game.name} ${events.game.actions.viewed}`, {
 			gameId: game.id,
 			gameName: game.name,
 			numberOfInstructions: Number(game.instructions.length),
