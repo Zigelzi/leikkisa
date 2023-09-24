@@ -4,6 +4,7 @@
 
 <script lang="ts">
 	export let name: string = 'telescope';
+	export let fill = 'none';
 
 	$: paths = getIconPaths();
 
@@ -18,11 +19,15 @@
 	fill-rule="evenodd"
 	clip-rule="evenodd"
 	class="overflow-visible w-8"
-	fill="none"
+	{fill}
 	stroke="currentColor"
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	stroke-width="32"
+	on:click
+	on:keyup
+	role="button"
+	tabindex="0"
 >
 	{#each paths as path}
 		<path d={path} />

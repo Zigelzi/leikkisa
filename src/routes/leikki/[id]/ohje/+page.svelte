@@ -1,11 +1,15 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import Button from '$lib/components/Button.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	let game = data.game;
+
+	console.log($page.params);
 </script>
 
-<div>
+<div class="mb-8">
 	<h2 class="text-2xl font-heading mb-4">Ohjeet</h2>
 	<ol class="space-y-6">
 		{#each game.instructions as instruction}
@@ -22,4 +26,8 @@
 			</li>
 		{/each}
 	</ol>
+</div>
+<!-- Actions -->
+<div>
+	<Button href={'/leikki/' + $page.params.id + '/palaute'} element="a">Valmis!</Button>
 </div>

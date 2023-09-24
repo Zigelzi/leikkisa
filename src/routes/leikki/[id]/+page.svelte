@@ -58,5 +58,5 @@
 </div>
 <!-- Actions -->
 <div>
-	<Button href={$page.url.pathname + '/ohje'} element="a">Aloita leikki</Button>
+	<Button href={'/leikki/' + $page.params.id + '/ohje'} element="a">Aloita leikki</Button>
 </div>
