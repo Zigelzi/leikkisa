@@ -51,4 +51,11 @@
 <div class="mt-2 mb-8">
 	<a href={previousPage} class="underline underline-offset-8" on:click={emitBackEvent}>Takaisin</a>
 </div>
+<div class="mb-4">
+	<h2 class="text-4xl font-bold sm:text-4xl font-heading">{game.name}</h2>
+	<p class="text-sm capitalize text-slate-600">
+		{game.gameType.name}
+	</p>
+</div>
+
 <slot />

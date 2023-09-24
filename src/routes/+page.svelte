@@ -9,7 +9,7 @@
 
 	$currentPageTitle = 'Etusivu';
 
-	function emitGameListView(gameType: GameType) {
+	function emitGameBrowsed(gameType: GameType) {
 		posthog.capture(`${events.game.name} ${events.game.actions.browsed}`, {
 			selectedGameType: gameType.name,
 			source: 'index'
@@ -24,14 +24,14 @@
 	</div>
 </section>
 <section class="">
-	<h2 class="text-5xl font-heading mb-8">Minkä tänään leikittäisiin?</h2>
+	<h2 class="text-5xl font-heading mb-8">Mitä tänään leikittäisiin?</h2>
 	<div class="mb-8">
 		{#each data.gameTypes as gameType}
 			<a
 				href="/leikki?gameType={gameType.id}"
 				class="mb-4 block"
 				on:click={() => {
-					emitGameListView(gameType);
+					emitGameBrowsed(gameType);
 				}}
 			>
 				<Card>
@@ -52,7 +52,7 @@
 			href="/leikki"
 			class="underline underline-offset-8"
 			on:click={() => {
-				emitGameListView({
+				emitGameBrowsed({
 					name: 'Kaikki',
 					iconName: 'telescope'
 				});
