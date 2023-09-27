@@ -4,7 +4,24 @@
 
 <script lang="ts">
 	export let name: string = 'telescope';
+	export let size: 'xl' | 'lg' | 'm' = 'm';
 	export let fill = 'none';
+
+	let scaleValue = setIconSize();
+	console.log(scaleValue);
+
+	function setIconSize(): number {
+		switch (size) {
+			case 'xl':
+				return 200;
+			case 'lg':
+				return 150;
+			case 'm':
+				return 100;
+			default:
+				return 100;
+		}
+	}
 
 	$: paths = getIconPaths();
 
@@ -18,7 +35,7 @@
 	viewBox="0 0 512 512"
 	fill-rule="evenodd"
 	clip-rule="evenodd"
-	class="overflow-visible w-8"
+	class="overflow-visible w-8 scale-{scaleValue}"
 	{fill}
 	stroke="currentColor"
 	stroke-linecap="round"

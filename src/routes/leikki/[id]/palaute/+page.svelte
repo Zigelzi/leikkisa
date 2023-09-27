@@ -7,7 +7,7 @@
 	export let form: ActionData;
 
 	const numberOfStars = 5;
-	let currentGameRating = 0;
+	let likeStatus: 'liked' | 'disliked' | undefined;
 	let isFeedbackPending = true;
 </script>
 
@@ -24,23 +24,33 @@
 			}}
 		>
 			<fieldset>
-				<legend class="text-center mx-auto">Kuinka kivaa teillä oli tässä leikissä?</legend>
+				<legend class="text-center mx-auto">Tykkäsittekö tästä leikistä?</legend>
 
-				<div class="flex space-x-4 my-6 justify-center">
-					{#each Array(numberOfStars) as star, index}
-						<label for="star-{index + 1}">
-							<Icon name="star" fill={index < currentGameRating ? 'yellow' : 'none'} />
-							<input
-								type="radio"
-								id="star-{index + 1}"
-								name="gameRating"
-								class="sr-only"
-								bind:group={currentGameRating}
-								value={index + 1}
-								required
-							/>
-						</label>
-					{/each}
+				<div class="flex space-x-16 my-16 justify-center">
+					<label for="thumbs-down">
+						<Icon name="thumbs-down" size="xl" fill={likeStatus === 'disliked' ? 'red' : 'none'} />
+						<input
+							type="radio"
+							id="thumbs-down"
+							name="gameRating"
+							class="sr-only"
+							bind:group={likeStatus}
+							value="disliked"
+							required
+						/>
+					</label>
+					<label for="thumbs-up">
+						<Icon name="thumbs-up" size="xl" fill={likeStatus === 'liked' ? 'green' : 'none'} />
+						<input
+							type="radio"
+							id="thumbs-up"
+							name="gameRating"
+							class="sr-only"
+							bind:group={likeStatus}
+							value="liked"
+							required
+						/>
+					</label>
 				</div>
 				{#if form?.gameRatingMissing}
 					<p class="text-red-500 text-sm text-center my-4">Arvio puuttuu</p>
@@ -50,9 +60,9 @@
 				<input
 					type="submit"
 					value="Tallenna arvio"
-					class="px-3 py-2 text-sm bg-slate-600 rounded-lg text-white inline-block"
-					class:bg-slate-200={currentGameRating === 0}
-					disabled={currentGameRating === 0}
+					class="px-3 py-2 text-sm rounded-lg text-white inline-block
+					{likeStatus === undefined ? 'bg-slate-200' : 'bg-slate-600'}"
+					disabled={likeStatus === undefined}
 				/>
 			</div>
 		</form>

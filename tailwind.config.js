@@ -2,7 +2,11 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {},
+		extend: {
+			scale: {
+				200: '2'
+			}
+		},
 		fontFamily: {
 			sans: ['Open Sans', 'sans-serif'],
 			heading: ['Caveat', 'sans-serif']
