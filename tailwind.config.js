@@ -12,5 +12,6 @@ export default {
 			heading: ['Caveat', 'sans-serif']
 		}
 	},
+	safelist: ['scale-100', 'scale-150', 'scale-200'],
 	plugins: []
 };

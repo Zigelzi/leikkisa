@@ -6,12 +6,10 @@
 	export let name: string = 'telescope';
 	export let size: 'xl' | 'lg' | 'm' = 'm';
 	export let fill = 'none';
+	$: scaleValue = setIconSize(size);
 
-	let scaleValue = setIconSize();
-	console.log(scaleValue);
-
-	function setIconSize(): number {
-		switch (size) {
+	function setIconSize(newSize: string): number {
+		switch (newSize) {
 			case 'xl':
 				return 200;
 			case 'lg':
