@@ -20,6 +20,7 @@ model Game {
   gameTypeId    Int
   gameType      GameType      @relation(fields: [gameTypeId], references: [id])
   ageCategories AgeCategory[]
+  likes         GameLike[]
 }
 
 model Instruction {
@@ -54,4 +55,12 @@ model AgeCategory {
   maxAge    Int
   name      String
   games     Game[]
+}
+
+model GameLike {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  isLiked   Boolean
+  game      Game     @relation(fields: [gameId], references: [id])
+  gameId    Int
 }

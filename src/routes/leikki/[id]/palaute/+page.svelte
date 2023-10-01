@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
 	import Icon from '$lib/components/Icon/Icon.svelte';
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
 
-	const numberOfStars = 5;
 	let likeStatus: 'liked' | 'disliked' | undefined;
 	let isFeedbackPending = true;
 </script>
@@ -17,7 +17,8 @@
 			method="POST"
 			class="mb-8"
 			use:enhance={() => {
-				return async ({ update }) => {
+				return async ({ result, update }) => {
+					console.log(result);
 					isFeedbackPending = false;
 					await update();
 				};
@@ -25,7 +26,7 @@
 		>
 			<fieldset>
 				<legend class="text-center mx-auto">Tykkäsittekö tästä leikistä?</legend>
-
+				<input type="hidden" id="gameId" name="gameId" value={$page.params.id} />
 				<div class="flex space-x-16 my-16 justify-center">
 					<label for="thumbs-down">
 						<Icon name="thumbs-down" size="xl" fill={likeStatus === 'disliked' ? 'red' : 'none'} />
@@ -60,18 +61,17 @@
 				<input
 					type="submit"
 					value="Tallenna arvio"
-					class="px-3 py-2 text-sm rounded-lg text-white inline-block
-					{likeStatus === undefined ? 'bg-slate-200' : 'bg-slate-600'}"
-					disabled={likeStatus === undefined}
+					class="px-3 py-2 text-sm rounded-lg text-white inline-block bg-slate-600"
 				/>
 			</div>
 		</form>
 	{/if}
 	{#if form?.gameRatedSuccessfully}
 		<div class="text-center mb-8">
-			{#if Number(form?.gameRating) >= 3}
+			{#if form?.isLiked}
 				<h3 class="text-xl font-bold mb-2">Mahtavaa!</h3>
-				<p>Kiva kuulla että teillä oli hauskaa tämän leikin parissa!</p>
+				<p class="mb-2">Kiva kuulla että teillä oli hauskaa tämän leikin parissa!</p>
+				<p>Tästä leikistä on tykätty jo {form?.gameLikes.length} kertaa.</p>
 			{:else}
 				<h3 class="text-xl font-bold mb-2">Höh!</h3>
 				<p>Löytyisikö Leikkisästä jokin toinen leikki joka sopisi teille paremmin?</p>
