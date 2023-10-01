@@ -53,9 +53,14 @@
 </div>
 <div class="mb-4">
 	<h2 class="text-4xl font-bold sm:text-4xl font-heading">{game.name}</h2>
-	<p class="text-sm capitalize text-slate-600">
-		{game.gameType.name}
-	</p>
+	<div class="flex justify-between">
+		<p class="text-sm capitalize text-slate-600">
+			{game.gameType.name}
+		</p>
+		<p class="text-sm text-slate-600">
+			Tykätty {data.likes} kertaa
+		</p>
+	</div>
 </div>
 
 <slot />

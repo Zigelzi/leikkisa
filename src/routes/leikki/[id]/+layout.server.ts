@@ -11,9 +11,12 @@ export const load: LayoutServerLoad = async ({ params }) => {
 			instructions: true,
 			locations: true,
 			gameType: true,
-			ageCategories: true
+			ageCategories: true,
+			likes: true
 		}
 	});
+
+	const likes = game?.likes.filter((like) => like.isLiked).length;
 
 	if (!game) {
 		throw error(404, {
@@ -21,5 +24,5 @@ export const load: LayoutServerLoad = async ({ params }) => {
 		});
 	}
 
-	return { game };
+	return { game, likes };
 };
