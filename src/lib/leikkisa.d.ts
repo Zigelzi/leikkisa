@@ -9,6 +9,7 @@ interface Game {
 	gameTypeId: Number;
 	gameType: GameType;
 	ageCategories: AgeCategory[];
+	likes: GameLike[];
 }
 
 interface Instruction {
@@ -48,4 +49,12 @@ interface AgeCategory {
 interface Icon {
 	name: string;
 	paths: string[];
+}
+
+interface GameLike {
+	id?: Number;
+	createdAt?: Date;
+	isLiked: Boolean;
+	game: Game;
+	gameId?: Int;
 }

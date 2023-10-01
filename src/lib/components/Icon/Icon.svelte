@@ -4,7 +4,7 @@
 
 <script lang="ts">
 	export let name: string = 'telescope';
-	export let size: 'xl' | 'lg' | 'm' = 'm';
+	export let size: 'xl' | 'lg' | 'm' | 's' = 'm';
 	export let fill = 'none';
 	$: scaleValue = setIconSize(size);
 
@@ -16,6 +16,8 @@
 				return 150;
 			case 'm':
 				return 100;
+			case 's':
+				return 50;
 			default:
 				return 100;
 		}
