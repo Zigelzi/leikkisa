@@ -5,8 +5,6 @@
 
 	export let data: PageData;
 	let game = data.game;
-
-	console.log($page.params);
 </script>
 
 <div class="mb-8">
