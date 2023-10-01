@@ -17,8 +17,7 @@
 			method="POST"
 			class="mb-8"
 			use:enhance={() => {
-				return async ({ result, update }) => {
-					console.log(result);
+				return async ({ update }) => {
 					isFeedbackPending = false;
 					await update();
 				};
