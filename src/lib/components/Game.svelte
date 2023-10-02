@@ -3,7 +3,7 @@
 	import Card from '$lib/components/Card.svelte';
 	export let game: Game;
 
-	const likes = game.likes.filter((like) => like.isLiked).length;
+	const likes = game.likes?.filter((like) => like.isLiked).length;
 </script>
 
 <Card>
