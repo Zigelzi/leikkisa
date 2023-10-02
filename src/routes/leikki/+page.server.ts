@@ -22,7 +22,8 @@ export const load: PageServerLoad = async ({ url }) => {
 			include: {
 				locations: true,
 				gameType: true,
-				ageCategories: true
+				ageCategories: true,
+				likes: true
 			}
 		});
 	} else {

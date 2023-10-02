@@ -52,13 +52,19 @@
 	<a href={previousPage} class="underline underline-offset-8" on:click={emitBackEvent}>Takaisin</a>
 </div>
 <div class="mb-4">
-	<h2 class="text-4xl font-bold sm:text-4xl font-heading">{game.name}</h2>
+	<h2 class="text-4xl mb-2 font-bold sm:text-4xl font-heading">{game.name}</h2>
 	<div class="flex justify-between">
 		<p class="text-sm capitalize text-slate-600">
 			{game.gameType.name}
 		</p>
 		<p class="text-sm text-slate-600">
-			Tykätty {data.likes} kertaa
+			{#if data.likes === 0}
+				Odottaa tykkääjiä!
+			{:else if data.likes === 1}
+				{data.likes} tykkäys!
+			{:else}
+				{data.likes} tykkäystä!
+			{/if}
 		</p>
 	</div>
 </div>

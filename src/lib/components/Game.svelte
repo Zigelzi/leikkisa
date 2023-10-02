@@ -18,7 +18,15 @@
 					</span>
 				</span>
 			{/each}
-			<p class="mb-2">{likes} tykkäystä</p>
+			<p class="mb-2">
+				{#if likes === 0}
+					Odottaa tykkääjiä!
+				{:else if likes === 1}
+					{likes} tykkäys!
+				{:else}
+					{likes} tykkäystä!
+				{/if}
+			</p>
 		</div>
 		<span class="whitespace-pre-wrap">{game.description}</span>
 	</div>

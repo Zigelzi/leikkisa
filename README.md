@@ -23,4 +23,4 @@ It's easier to start if you have practical tasks to pick up. Here is a list of t
 2. Playing a game
    - [ ] Fix game navigation redirecting to the game main page.
    - [x] Change rating stars to thumbsup.
-   - [ ] Users can view likes of an game.
+   - [x] Users can view likes of an game.
