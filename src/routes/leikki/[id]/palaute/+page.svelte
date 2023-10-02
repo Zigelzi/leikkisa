@@ -11,7 +11,7 @@
 	let isFeedbackPending = true;
 </script>
 
-<div>
+<div class="mt-16">
 	{#if isFeedbackPending}
 		<form
 			method="POST"
@@ -23,8 +23,8 @@
 				};
 			}}
 		>
-			<fieldset>
-				<legend class="text-center mx-auto">Tykkäsittekö tästä leikistä?</legend>
+			<fieldset class="">
+				<legend class="text-center text-xl font-bold mx-auto">Tykkäsittekö tästä leikistä?</legend>
 				<input type="hidden" id="gameId" name="gameId" value={$page.params.id} />
 				<div class="flex space-x-16 my-16 justify-center">
 					<label for="thumbs-down">
@@ -68,12 +68,18 @@
 	{#if form?.gameRatedSuccessfully}
 		<div class="text-center mb-8">
 			{#if form?.isLiked}
-				<h3 class="text-xl font-bold mb-2">Mahtavaa!</h3>
-				<p class="mb-2">Kiva kuulla että teillä oli hauskaa tämän leikin parissa!</p>
+				<h3 class="text-xl font-bold mb-4">Mahtavaa!</h3>
+				<p class="mb-4">Kiva kuulla että teillä oli hauskaa tämän leikin parissa!</p>
 				<p>Tästä leikistä on tykätty jo {form?.gameLikes.length} kertaa.</p>
-			{:else}
-				<h3 class="text-xl font-bold mb-2">Höh!</h3>
+			{:else if !form?.isLiked}
+				<h3 class="text-xl font-bold mb-4">Höh!</h3>
 				<p>Löytyisikö Leikkisästä jokin toinen leikki joka sopisi teille paremmin?</p>
+			{:else}
+				<h3 class="text-xl font-bold mb-4">Selvä!</h3>
+				<p>
+					Voit kertoa seuraavalla kerralla tykkäsitkö tästä leikistä. Sen avulla voit auttaa muita
+					löytämään Leikkisän kivoimmat leikit.
+				</p>
 			{/if}
 		</div>
 		<div class="flex justify-center">
