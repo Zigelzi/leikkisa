@@ -3,9 +3,11 @@
 	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
 	import Icon from '$lib/components/Icon/Icon.svelte';
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData;
+	export let data: PageData;
+	let game = data.game;
 
 	let likeStatus: 'liked' | 'disliked' | undefined;
 	let isFeedbackPending = true;
@@ -82,8 +84,12 @@
 				</p>
 			{/if}
 		</div>
-		<div class="flex justify-center">
-			<Button element="a" href="/leikki">Valitse seuraava leikki</Button>
+		<div>
+			<h2 class="text-xl font-bold mb-6 text-center">Selaa lisää leikkejä</h2>
+		</div>
+		<div class="flex justify-center gap-6">
+			<Button element="a" href="/leikki">Kaikki leikit</Button>
+			<Button element="a" href="/leikki?gameType={game.gameTypeId}">Samanlaiset leikit</Button>
 		</div>
 	{/if}
 </div>
