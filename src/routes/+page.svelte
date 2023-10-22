@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Card from '$lib/components/Card.svelte';
 	import { currentPageTitle } from '$lib/stores';
 	import { posthog } from 'posthog-js';
 	import events from '$lib/events';
+	import Card from '$lib/components/Card.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -20,7 +21,10 @@
 <section class="min-h-[80vh] flex items-center">
 	<div>
 		<h1 class="text-8xl mb-6 font-heading">Leikkisä</h1>
-		<p>Kirjasto puuhista ja leikeistä joiden avulla liikut ja pidät hauskaa lastesi kanssa!</p>
+		<p class=" mb-8">
+			Kirjasto puuhista ja leikeistä joiden avulla liikut ja pidät hauskaa lastesi kanssa!
+		</p>
+		<Button element="a" href="/leikki">Selaa leikkejä</Button>
 	</div>
 </section>
 <section class="">
